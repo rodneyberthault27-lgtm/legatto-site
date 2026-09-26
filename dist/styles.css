@@ -64,13 +64,14 @@ body:hover .ambient { opacity: 1; }
 .button-ghost { color: white; border: 1px solid rgba(255,255,255,.32); background: rgba(255,255,255,.03); backdrop-filter: blur(6px); }
 .button-ghost:hover { border-color: var(--gold); color: var(--gold); }
 .hero-proof { display: flex; gap: 34px; margin-top: 64px; }
-.hero-proof div { padding-left: 15px; border-left: 1px solid rgba(199,166,106,.6); }
-.hero-proof strong, .hero-proof span { display: block; }
-.hero-proof strong { font-family: var(--serif); font-size: 17px; font-weight: 500; }
-.hero-proof span { margin-top: 5px; color: rgba(255,255,255,.52); font-size: 10px; letter-spacing: .04em; }
+.hero-proof a { padding-left: 15px; color: white; border-left: 1px solid rgba(199,166,106,.6); text-decoration: none; font-family: var(--serif); font-size: 17px; font-weight: 500; transition: color .2s ease; }
+.hero-proof a:hover { color: var(--gold); }
 .scroll-cue { position: absolute; z-index: 3; right: 34px; bottom: 36px; display: flex; align-items: center; gap: 12px; transform: rotate(90deg); transform-origin: bottom right; color: rgba(255,255,255,.48); text-transform: uppercase; font-size: 9px; letter-spacing: .2em; }
 .scroll-cue span { display: block; width: 42px; height: 1px; overflow: hidden; background: rgba(255,255,255,.25); }
 .scroll-cue span::after { content: ""; display: block; width: 50%; height: 100%; background: var(--gold); animation: scrollLine 2s infinite; }
+.authority-strip { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 3vw, 48px); min-height: 106px; padding: 24px max(24px, calc((100vw - var(--max))/2)); color: var(--navy); background: white; }
+.authority-strip p { margin: 0; max-width: 260px; font-size: 13px; font-weight: 600; line-height: 1.45; }
+.authority-strip span { width: 1px; height: 31px; background: rgba(13,27,42,.16); }
 
 .quote-journey { color: white; background: var(--navy-2); }
 .quote-intro { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: end; margin-bottom: 58px; }
@@ -189,6 +190,7 @@ footer > p { margin: 20px 0 50px; font-size: 12px; }
 .whatsapp-float { position: fixed; z-index: 80; right: 24px; bottom: 24px; display: inline-flex; align-items: center; gap: 10px; padding: 15px 18px; color: var(--navy); background: var(--gold); border-radius: 999px; box-shadow: 0 14px 36px rgba(5,13,23,.28); text-decoration: none; font-size: 11px; font-weight: 800; letter-spacing: .04em; transition: transform .25s ease, box-shadow .25s ease; }
 .whatsapp-float:hover { transform: translateY(-3px); box-shadow: 0 18px 42px rgba(5,13,23,.34); }
 .whatsapp-float span { width: 17px; height: 17px; display: grid; place-items: center; border: 1.5px solid currentColor; border-radius: 50%; font-size: 13px; line-height: 1; }
+.mobile-actions { display: none; }
 
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity .82s cubic-bezier(.2,.75,.2,1), transform .82s cubic-bezier(.2,.75,.2,1); }
 .reveal.visible { opacity: 1; transform: none; }
@@ -234,7 +236,10 @@ footer > p { margin: 20px 0 50px; font-size: 12px; }
   .hero h1 { font-size: clamp(46px, 14vw, 68px); }
   .hero-copy { font-size: 14px; line-height: 1.65; }
   .hero-actions { flex-direction: column; align-items: stretch; max-width: 380px; margin-top: 28px; }
+  .hero-actions .button-secondary { display: none; }
   .hero-proof { display: none; }
+  .authority-strip { align-items: flex-start; flex-direction: column; gap: 14px; padding: 28px 22px; }
+  .authority-strip span { width: 38px; height: 1px; }
   .scroll-cue { display: none; }
   .statement h2, .section-heading h2, .method h2, .founder h2, .closing-cta h2 { font-size: 42px; }
   .section-heading { gap: 30px; margin-bottom: 38px; }
@@ -259,7 +264,10 @@ footer > p { margin: 20px 0 50px; font-size: 12px; }
   .closing-cta { padding: 100px 22px; }
   .closing-mark { font-size: 270px; }
   .quote-products a { min-height: 116px; padding: 17px; font-size: 27px; }
-  .whatsapp-float { right: 16px; bottom: 16px; padding: 14px 16px; }
+  .whatsapp-float { display: none; }
+  .mobile-actions { position: fixed; z-index: 90; right: 12px; bottom: 12px; left: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; background: rgba(13,27,42,.88); border: 1px solid rgba(255,255,255,.13); border-radius: 14px; box-shadow: 0 14px 35px rgba(5,13,23,.28); backdrop-filter: blur(14px); }
+  .mobile-actions a { display: flex; justify-content: center; align-items: center; min-height: 46px; color: white; border: 1px solid rgba(255,255,255,.24); border-radius: 9px; text-decoration: none; font-size: 11px; font-weight: 800; letter-spacing: .04em; }
+  .mobile-actions a:last-child { color: var(--navy); border-color: var(--gold); background: var(--gold); }
   footer { padding: 50px 22px; }
   .footer-meta { flex-direction: column; }
 }
