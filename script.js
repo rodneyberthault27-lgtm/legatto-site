@@ -1,5 +1,7 @@
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.main-nav');
+const header = document.querySelector('.site-header');
+const progressBar = document.querySelector('.scroll-progress span');
 
 function closeMenu() {
   menuButton.setAttribute('aria-expanded', 'false');
@@ -28,6 +30,20 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
+
+let scrollFrame;
+function updateScrollEffects() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  header.classList.toggle('scrolled', window.scrollY > 42);
+  scrollFrame = undefined;
+}
+
+window.addEventListener('scroll', () => {
+  if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScrollEffects);
+}, { passive: true });
+updateScrollEffects();
 
 const ambient = document.querySelector('.ambient');
 if (window.matchMedia('(pointer: fine)').matches) {
