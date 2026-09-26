@@ -70,16 +70,12 @@ body:hover .ambient { opacity: 1; }
 .stories { background: #e9edf1; }
 .section-heading > div:last-child { max-width: 750px; }
 .section-lead { max-width: 600px; margin: 24px 0 0; color: var(--graphite); font-size: 14px; line-height: 1.8; }
-.story-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
-.story-card { position: relative; min-height: 520px; overflow: hidden; background: var(--navy); }
-.story-card::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(0deg, rgba(13,27,42,.93), rgba(13,27,42,0)); pointer-events: none; }
-.story-card img { width: 100%; height: 100%; min-height: 520px; object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
-.story-card:hover img { transform: scale(1.045); }
-.story-card:first-child img { object-position: 66% center; }
-.story-card:last-child img { object-position: 43% center; }
-.story-caption { position: absolute; z-index: 1; right: clamp(24px, 4vw, 48px); bottom: clamp(24px, 4vw, 44px); left: clamp(24px, 4vw, 48px); color: white; }
-.story-caption p { margin: 0 0 12px; color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-.story-caption h3 { max-width: 520px; margin: 0; font-family: var(--serif); font-size: clamp(31px, 3vw, 46px); font-weight: 500; line-height: 1.12; letter-spacing: -.025em; }
+.priority-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(13,27,42,.18); }
+.priority-list article { min-height: 220px; padding: 26px clamp(18px, 2.7vw, 44px) 26px 0; border-right: 1px solid rgba(13,27,42,.18); }
+.priority-list article + article { padding-left: clamp(18px, 2.7vw, 44px); }
+.priority-list article:last-child { border-right: 0; }
+.priority-list p { margin: 0 0 52px; color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.priority-list h3 { max-width: 340px; margin: 0; color: var(--navy); font-family: var(--serif); font-size: clamp(24px, 2vw, 32px); font-weight: 500; line-height: 1.18; letter-spacing: -.02em; }
 
 .solutions { background: var(--paper); }
 .section-heading { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: end; margin-bottom: 60px; }
@@ -90,17 +86,19 @@ body:hover .ambient { opacity: 1; }
 .bento-card:hover { transform: translateY(-5px); border-color: rgba(199,166,106,.8); box-shadow: 0 24px 60px rgba(13,27,42,.08); }
 .bento-card:nth-child(3) { grid-column: 2; }
 .bento-feature { grid-row: span 2; min-height: 636px; color: white; background: var(--navy); border-color: transparent; }
-.bento-feature::before { content: ""; position: absolute; inset: 0; opacity: .28; background: radial-gradient(circle at 74% 22%, var(--navy-2), transparent 36%), linear-gradient(135deg, transparent 52%, rgba(199,166,106,.16)); }
+.bento-feature::before { content: ""; position: absolute; inset: 0; opacity: .3; background: linear-gradient(135deg, rgba(255,255,255,.03), transparent 48%), linear-gradient(0deg, rgba(199,166,106,.09), transparent 45%); }
 .bento-quote { grid-column: 1 / -1; min-height: 250px; justify-content: center; padding-right: 20%; background: var(--gold); border: 0; }
 .card-number { align-self: flex-start; color: var(--gold); font-size: 10px; letter-spacing: .2em; }
 .bento-card h3 { position: relative; max-width: 540px; margin: 10px 0 15px; font-family: var(--serif); font-size: clamp(30px, 3vw, 44px); line-height: 1.12; font-weight: 500; }
 .bento-card p { position: relative; max-width: 530px; margin: 0; color: var(--graphite); font-size: 14px; line-height: 1.75; }
 .bento-feature p { color: rgba(255,255,255,.63); }
 .bento-card .card-label { color: var(--gold); text-transform: uppercase; font-size: 10px; font-weight: 700; letter-spacing: .15em; }
-.protection-map { position: relative; align-self: flex-end; display: grid; gap: 10px; width: min(100%, 250px); padding: 18px 0 18px 20px; border-left: 1px solid rgba(199,166,106,.62); }
-.protection-map::before { content: "Prioridades"; position: absolute; top: -17px; left: 20px; color: rgba(255,255,255,.42); font-size: 9px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
-.protection-map span { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.76); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
-.protection-map span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.feature-heading { position: relative; display: grid; gap: 16px; }
+.feature-heading .card-label { max-width: 280px; margin: 0; color: rgba(255,255,255,.58); line-height: 1.45; }
+.conversation-map { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(255,255,255,.18); border-left: 1px solid rgba(255,255,255,.18); }
+.conversation-map div { min-height: 94px; padding: 15px; border-right: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(255,255,255,.18); }
+.conversation-map span { display: block; margin-bottom: 14px; color: var(--gold); font-size: 9px; letter-spacing: .12em; }
+.conversation-map p { margin: 0; color: rgba(255,255,255,.77); font-size: 12px; line-height: 1.45; }
 .card-link { position: relative; display: inline-flex; gap: 16px; margin-top: 24px; color: var(--gold); text-decoration: none; text-transform: uppercase; font-size: 9px; font-weight: 700; letter-spacing: .13em; }
 .card-link-dark { color: var(--navy-2); }
 .card-link:hover { text-decoration: underline; text-underline-offset: 6px; }
@@ -201,9 +199,11 @@ footer > p { margin: 20px 0 50px; font-size: 12px; }
   .scroll-cue { display: none; }
   .statement h2, .section-heading h2, .method h2, .founder h2, .closing-cta h2 { font-size: 42px; }
   .section-heading { gap: 30px; margin-bottom: 38px; }
-  .story-grid { grid-template-columns: 1fr; }
-  .story-card, .story-card img { min-height: 420px; }
-  .story-caption h3 { font-size: 34px; }
+  .priority-list { grid-template-columns: 1fr; }
+  .priority-list article, .priority-list article + article { min-height: auto; padding: 22px 0; border-right: 0; border-bottom: 1px solid rgba(13,27,42,.18); }
+  .priority-list p { margin-bottom: 14px; }
+  .priority-list article:last-child { border-bottom: 0; }
+  .conversation-map { grid-template-columns: 1fr; }
   .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
   .bento-card, .bento-card:nth-child(3), .bento-quote { grid-column: auto; min-height: 300px; }
   .bento-feature { grid-row: auto; min-height: 540px; }
