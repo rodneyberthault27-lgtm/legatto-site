@@ -46,7 +46,7 @@ window.addEventListener('scroll', () => {
 updateScrollEffects();
 
 const ambient = document.querySelector('.ambient');
-if (window.matchMedia('(pointer: fine)').matches) {
+if (ambient && window.matchMedia('(pointer: fine)').matches) {
   window.addEventListener('pointermove', (event) => {
     ambient.style.left = `${event.clientX}px`;
     ambient.style.top = `${event.clientY}px`;
@@ -63,3 +63,34 @@ document.querySelectorAll('.accordion details').forEach((detail) => {
 });
 
 document.querySelector('#year').textContent = new Date().getFullYear();
+
+const priorityCopy = {
+  familia: {
+    text: 'Quando a renda sustenta os planos da família, olhar para a continuidade é uma forma de cuidado. Uma conversa pode ajudar a dimensionar esse cenário.',
+    message: 'Olá, quero conversar sobre proteção financeira para minha família e minha renda.'
+  },
+  patrimonio: {
+    text: 'Patrimônio também carrega escolhas, relações e futuro. Planejar proteção e sucessão com antecedência traz mais clareza para cada próximo passo.',
+    message: 'Olá, quero conversar sobre proteção do meu patrimônio e planejamento sucessório.'
+  },
+  saude: {
+    text: 'Saúde pede previsibilidade: rede, cobertura e custo precisam fazer sentido para a rotina de quem depende dessa escolha.',
+    message: 'Olá, quero conversar sobre plano ou seguro saúde para a minha família.'
+  },
+  empresa: {
+    text: 'Quando o negócio envolve pessoas e responsabilidades, proteção também é uma decisão de continuidade — para a operação e para quem a faz acontecer.',
+    message: 'Olá, quero conversar sobre proteção, saúde e benefícios para a minha empresa.'
+  }
+};
+
+const priorityResult = document.querySelector('#priority-result');
+const priorityLink = document.querySelector('#priority-link');
+document.querySelectorAll('[data-priority]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const choice = priorityCopy[button.dataset.priority];
+    document.querySelectorAll('[data-priority]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    priorityResult.textContent = choice.text;
+    priorityLink.href = `https://wa.me/5511971371823?text=${encodeURIComponent(choice.message)}`;
+    priorityLink.classList.add('active');
+  });
+});
