@@ -1,0 +1,16 @@
+/* Regras isoladas: preservam o sistema visual e impedem colisões entre blocos antigos. */
+.section-top{display:block!important;max-width:900px!important;margin:0 auto 58px!important}
+.section-top>.index{display:block;width:100%;height:auto;margin:0 0 22px!important;padding:0 0 14px!important;border-bottom:1px solid #1b2f4a26}
+.section-top>div{max-width:900px!important}
+.section-top h2{max-width:880px;margin:0!important}
+.section-top p:not(.index){max-width:680px;margin:24px 0 0!important}
+.manifesto-pillars span{width:auto!important;height:auto!important;background:none!important}
+.story-card.family{background-image:url("assets/legatto-familia-editorial.png")!important;background-position:58% center!important}
+.story-card.legacy,.story-card.home{background-image:url("assets/legatto-legado-editorial.png")!important;background-position:65% center!important}
+.story-card.work,.story-card.professional{background-image:url("assets/legatto-empresas-editorial.png")!important;background-position:68% center!important}
+.story-card:before{z-index:0!important;background:linear-gradient(0deg,#0d1b2af0 0%,#0d1b2a70 55%,#0d1b2a1f 100%)!important}
+.story-card>*{position:relative;z-index:1}
+.story-card span,.story-card b{position:absolute}
+.market-brands .section-top,.faq .section-top,.editorial .section-top,.priorities .section-top,.what-we-do .section-top{max-width:900px!important;margin-left:auto!important;margin-right:auto!important}
+.brand-groups{align-items:start}.brand-groups>div{min-width:0}
+@media(max-width:720px){.section-top{margin-bottom:38px!important}.section-top>.index{margin-bottom:16px!important}.section-top h2{font-size:clamp(42px,11vw,54px)!important}.manifesto-pillars span{width:auto!important;height:auto!important}}
