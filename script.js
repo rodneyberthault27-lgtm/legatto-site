@@ -68,6 +68,7 @@ document.querySelectorAll('.accordion details').forEach(detail => {
 document.querySelector('#year').textContent = new Date().getFullYear();
 
 const priorityCopy = {
+  auto: { text: 'Vamos conhecer seu veículo, seu perfil de uso e a proteção atual para comparar coberturas, franquias e assistências.', message: 'Olá, quero cotar ou renovar meu Seguro Auto com a Legatto.' },
   familia: { text: 'Vamos entender quem depende da sua renda, quais compromissos precisam continuar e o que você já tem protegido.', message: 'Olá, quero conversar sobre proteção financeira para minha família e minha renda.' },
   patrimonio: { text: 'Vamos conversar sobre seu patrimônio, seus objetivos de continuidade e as mudanças que podem pedir uma revisão.', message: 'Olá, quero conversar sobre proteção do meu patrimônio e planejamento sucessório.' },
   saude: { text: 'Vamos avaliar sua região, a rede que faz parte da sua rotina e as condições de um plano que atenda às suas necessidades.', message: 'Olá, quero conversar sobre plano ou seguro de saúde para minha família.' },
