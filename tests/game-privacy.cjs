@@ -1,0 +1,16 @@
+const fs=require('node:fs');const path=require('node:path');const assert=require('node:assert/strict');const http=require('node:http');
+const {chromium}=require('C:/Users/rodne/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const root=path.resolve(__dirname,'..');
+const server=http.createServer((req,res)=>{const url=new URL(req.url,'http://localhost');const file=path.resolve(root,'.'+(url.pathname==='/'?'/sobreviva.html':url.pathname));if(!file.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}fs.readFile(file,(err,data)=>{if(err){res.writeHead(404);res.end();return;}res.setHeader('Content-Type',({'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css'})[path.extname(file)]||'application/octet-stream');res.end(data);});});
+(async()=>{await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
+try{browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});const page=await browser.newPage();const posts=[];page.on('request',req=>{if(req.method()==='POST')posts.push(req.url());});
+await page.goto('http://127.0.0.1:'+server.address().port+'/sobreviva.html',{waitUntil:'networkidle'});
+await page.locator('[data-next]').click();await page.locator('[data-budget="1500"]').click();await page.locator('[data-next]').click();
+for(let step=0;step<3;step++)await page.locator('[data-next]').click();
+await page.locator('[data-choice="plano"]').click();
+for(let step=0;step<3;step++)await page.locator('[data-next]').click();
+await page.locator('[data-range]').first().click();await page.locator('[data-next]').click();await page.locator('[data-next]').click();
+assert.equal(await page.locator('[data-lead]').count(),0,'Simulação deve permitir seguir sem cadastro pessoal');
+await page.locator('[data-submit]').click();assert.ok(await page.locator('a[data-whatsapp]').isVisible());assert.deepEqual(posts,[],'Nenhum POST de dados pessoais');
+assert.equal(await page.evaluate(()=>window.dataLayer?.length||0),0,'Medição permanece desativada');console.log('PASS: jogo completo sem cadastro, POST ou Analytics; contato opcional via WhatsApp.');
+}finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}})().catch(e=>{console.error(e);process.exitCode=1;});
