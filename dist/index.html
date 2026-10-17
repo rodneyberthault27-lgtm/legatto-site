@@ -17,16 +17,17 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261017-rollback">
-  <script src="script.js?v=20261017-rollback" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261017-scrollfix">
+  <script src="script.js?v=20261017-scrollfix" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
   <header class="site-header">
     <div class="header-inner container">
-      <a class="brand" href="#inicio" aria-label="Legatto, início"><img src="assets/legatto-logo.webp" width="220" height="85" alt="Legatto Consultoria de Seguros"></a>
+      <a class="brand" translate="no" href="#inicio" aria-label="Legatto, início"><img src="assets/legatto-logo.webp" width="220" height="85" alt="Legatto Consultoria de Seguros"></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu"><span></span><span></span></button>
       <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
         <a href="#solucoes">Soluções</a><a href="#como-funciona">Como cuidamos</a><a href="#sobre">A Legatto</a><a href="#conteudo-editorial">Guias</a><a href="#duvidas">Dúvidas</a>
@@ -109,7 +110,7 @@
 
     <section class="priorities section-pad" id="prioridades" aria-labelledby="priorities-title">
       <div class="container priorities-grid">
-        <div class="section-heading reveal"><h2 id="priorities-title">Comece pelo<br>que importa.</h2><p>Selecione uma prioridade e veja como podemos iniciar a conversa. A escolha fica neste navegador; ao abrir o WhatsApp, você decide se quer enviar a mensagem.</p></div>
+        <div class="section-heading reveal"><h2 id="priorities-title">Comece pelo<br>que importa.</h2><p>Selecione uma prioridade e veja como podemos iniciar a conversa. A escolha fica salva neste navegador; ao abrir o WhatsApp, você decide se quer enviar a mensagem.</p></div>
         <div class="priorities-panel reveal"><p class="priority-question">O que pede atenção hoje?</p><div class="priority-options" role="group" aria-label="Escolha uma prioridade"><button type="button" data-priority="auto" aria-pressed="false">Meu carro</button><button type="button" data-priority="familia" aria-pressed="false">Minha família e minha renda</button><button type="button" data-priority="patrimonio" aria-pressed="false">Meu patrimônio e legado</button><button type="button" data-priority="saude" aria-pressed="false">Minha saúde e meu cuidado</button><button type="button" data-priority="empresa" aria-pressed="false">Minha empresa e minha equipe</button></div><div class="priority-feedback"><p class="priority-result" id="priority-result" aria-live="polite">Sua escolha ajuda a dar contexto ao primeiro contato.</p><a class="button button-gold priority-link" id="priority-link" href="https://wa.me/5511971371823" target="_blank" rel="noopener">Conversar sobre minha prioridade</a></div></div>
       </div>
     </section>

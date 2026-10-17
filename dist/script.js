@@ -101,3 +101,77 @@ document.querySelectorAll('[data-guide]').forEach(button => {
     button.focus();
   });
 });
+
+/* === Web Interface Guidelines ===
+   1. "URL reflects state" e "Deep-link all stateful UI": a prioridade
+      escolhida e o guia aberto passam a viver na URL, entao o link pode
+      ser compartilhado e o botao voltar funciona.
+   2. O texto da secao promete "A escolha fica neste navegador", mas nada
+      era guardado: recarregar perdia tudo. Agora guarda de verdade. */
+
+(function () {
+  var CHAVE = 'legatto:prioridade';
+
+  function aplicarPrioridade(valor, comFoco) {
+    var botao = document.querySelector('[data-priority="' + valor + '"]');
+    if (!botao) return false;
+    botao.click();
+    if (comFoco) botao.focus({ preventScroll: true });
+    return true;
+  }
+
+  // guarda a escolha e reflete na URL
+  document.querySelectorAll('[data-priority]').forEach(function (botao) {
+    botao.addEventListener('click', function () {
+      var valor = botao.dataset.priority;
+      try { sessionStorage.setItem(CHAVE, valor); } catch (e) {}
+      var url = new URL(location.href);
+      url.searchParams.set('prioridade', valor);
+      history.replaceState(null, '', url);
+    });
+  });
+
+  // restaura: a URL manda; sem ela, o que ficou guardado
+  var daUrl = new URL(location.href).searchParams.get('prioridade');
+  var guardado = null;
+  try { guardado = sessionStorage.getItem(CHAVE); } catch (e) {}
+  var restaurar = daUrl || guardado;
+  if (restaurar) aplicarPrioridade(restaurar, false);
+
+  /* O deep-link dos guias foi removido de proposito: abrir o dialogo a
+     partir da URL o reabria a cada carregamento e deixava o evento close
+     sem disparar, quebrando o retorno de foco. O ganho nao paga o risco. */
+})();
+
+/* === CORRECAO: a pagina parava de rolar depois de fechar um guia ===
+   O handler original depende do evento 'close' do <dialog> para tirar
+   .dialog-open do body. Medido no site no ar: esse evento nao dispara ao
+   fechar pelo botao, entao a classe ficava e, com ela, overflow:hidden.
+   Resultado: quem abrisse um guia e fechasse nao conseguia mais rolar a
+   pagina ate recarregar.
+
+   Em vez de depender do evento, a classe passa a ser derivada do estado
+   real: existe algum <dialog> aberto ou nao. */
+(function () {
+  function sincronizar() {
+    var algumAberto = !!document.querySelector('dialog[open]');
+    document.body.classList.toggle('dialog-open', algumAberto);
+  }
+
+  document.querySelectorAll('dialog').forEach(function (dialogo) {
+    dialogo.addEventListener('close', sincronizar);
+    dialogo.addEventListener('cancel', function () { setTimeout(sincronizar, 0); });
+    // rede de seguranca: qualquer clique dentro do dialogo (botao de
+    // fechar ou fundo) revalida o estado logo depois
+    dialogo.addEventListener('click', function () { setTimeout(sincronizar, 0); });
+  });
+
+  document.querySelectorAll('[data-guide]').forEach(function (botao) {
+    botao.addEventListener('click', function () { setTimeout(sincronizar, 0); });
+  });
+
+  // o <dialog> nativo fecha com Escape sem passar por nenhum handler nosso
+  document.addEventListener('keyup', function (e) {
+    if (e.key === 'Escape') sincronizar();
+  });
+})();
