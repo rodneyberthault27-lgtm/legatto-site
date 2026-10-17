@@ -175,3 +175,11 @@ h1 em,h2 em,h3 em,.hero-title em{color:inherit;font-style:normal}
 .guide-dialog h2{font-size:26px;line-height:1.22}
 @media(max-width:860px){.guide-card h3{font-size:22px}.guide-dialog h2{font-size:24px}}
 @media(max-width:700px){.guide-card h3{font-size:21px}.guide-dialog h2{font-size:22px}}
+
+/* --- correcao: pillars em uma coluna de verdade ---
+   .pillars p tinha grid-column:2, o que CRIA uma faixa implicita mesmo
+   com grid-template-columns:1fr. A grade continuava com duas colunas e,
+   com o CSS antigo em cache (32px 1fr), o nome colidia com o texto
+   ("Clarezace entende"). Agora o nome fica em cima e a frase embaixo. */
+.pillars p{grid-column:auto;margin-top:2px}
+.pillars>div{grid-template-columns:minmax(0,1fr);gap:6px}
