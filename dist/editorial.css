@@ -558,3 +558,32 @@
    em .visible da secao 9, que sempre terminam no estado visivel.
    ========================================================================== */
 .motion-ready .reveal{opacity:1; transform:none}
+
+/* ==========================================================================
+   14. ALINHAMENTO — uma unica linha para a pagina inteira
+   Medido no ar: 8 bordas esquerdas distintas. As corretas sao 112 (titulos)
+   e 585 (corpos). O FAQ estava 64px fora das duas porque a banda tinha
+   padding proprio em vez da geometria do container.
+
+   A banda continua sangrando de ponta a ponta, mas o conteudo dentro dela
+   passa a usar a mesma caixa de 1200px do resto da pagina: o padding
+   horizontal reproduz a margem do container, e o eixo de 34% passa a ser
+   calculado sobre essa caixa, nao sobre a largura total.
+   ========================================================================== */
+
+.faq > .container{max-width:none; width:100%; padding:0; margin:0}
+
+.faq > .container > .section-heading,
+.accordion .faq-item{
+  padding-inline: max(var(--goteira), calc((100% - var(--max)) / 2));
+}
+.accordion .faq-item{
+  padding-block: clamp(30px, 3.6vw, 48px);
+}
+
+/* A goteira espelha exatamente a do .container do styles.css
+   (width:min(calc(100% - 80px), --max) e as duas variantes em media query),
+   senao a banda do FAQ desencontra do resto abaixo de 1440px. */
+:root{--goteira:40px}
+@media(max-width:960px){:root{--goteira:24px}}
+@media(max-width:700px){:root{--goteira:20px}}
