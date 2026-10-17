@@ -40,7 +40,7 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
     });
   }, { threshold: 0.06 });
   document.documentElement.classList.add('motion-ready');
-  document.querySelectorAll('.reveal, .legato-figure, .section-heading, .method-steps li, .faq-item, .guide-card, .confidence-grid article, .brand-card').forEach(item => revealObserver.observe(item));
+  document.querySelectorAll('.reveal').forEach(item => revealObserver.observe(item));
 }
 const progressBar = document.querySelector('.scroll-progress span');
 let scrollFrame = false;
