@@ -40,7 +40,7 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
     });
   }, { threshold: 0.06 });
   document.documentElement.classList.add('motion-ready');
-  document.querySelectorAll('.reveal').forEach(item => revealObserver.observe(item));
+  document.querySelectorAll('.reveal, .legato-figure').forEach(item => revealObserver.observe(item));
 }
 const progressBar = document.querySelector('.scroll-progress span');
 let scrollFrame = false;
