@@ -1,0 +1,501 @@
+/* ==========================================================================
+   LEGATTO — camada de direcao de arte
+   Direcao: "The printed annual" (editorial-report), tasteskill v2, seed 1357717066
+   Secao features redesenhada para "Rows with margin photographs".
+
+   A ideia: "Nesta pagina, o legato — a articulacao que nao corta o som entre
+   as notas — vira o eixo vertical continuo que atravessa a pagina inteira."
+
+   Paleta e tipo sao os da marca (--keep palette,type no sorteio).
+   Esta folha entra DEPOIS de styles.css e so redefine composicao.
+   ========================================================================== */
+
+:root{
+  /* o eixo do legato: a linha de onde tudo pende */
+  --eixo: 35%;
+  --medida: 34ch;
+  --ar: clamp(96px, 11vw, 160px);   /* respiro entre secoes */
+}
+
+/* --------------------------------------------------------------------------
+   1. HERO — "Narrow talk, wide headline"
+   O titulo sobe para escala de poster. Duas linhas, uma face, uma cor.
+   -------------------------------------------------------------------------- */
+
+.hero-title,
+#hero-title{
+  font-size:clamp(56px, 8.6vw, 132px);
+  line-height:.86;
+  letter-spacing:-.04em;
+  margin:0 0 28px;
+  text-wrap:balance;
+}
+
+.hero-service-line{
+  margin:0 0 24px;
+  color:var(--gold);
+}
+
+.hero-description{
+  font-size:18px;
+  line-height:1.55;
+  max-width:38ch;
+}
+
+/* --------------------------------------------------------------------------
+   2. SOLUCOES — "Rows with margin photographs"
+   Seis linhas penduradas no mesmo eixo. As fotos vao para a margem direita
+   em larguras deliberadamente desiguais, para a coluna nao virar grade.
+   -------------------------------------------------------------------------- */
+
+.solutions .section-heading{
+  max-width:none;
+  margin-bottom:clamp(56px, 8vw, 110px);
+  padding-left:var(--eixo);
+}
+.solutions .section-heading h2{
+  font-size:clamp(40px, 5vw, 76px);
+  line-height:.98;
+  letter-spacing:-.03em;
+}
+.solutions .section-heading>p{
+  max-width:46ch;
+  font-size:18px;
+}
+
+.solutions-grid{
+  display:block;        /* deixa de ser grade de cards */
+}
+
+.solution-card{
+  display:grid;
+  grid-template-columns:var(--eixo) minmax(0, var(--medida)) 1fr;
+  column-gap:48px;
+  align-items:start;
+  background:none;      /* a superficie some: a linha organiza, nao a caixa */
+  padding:0;
+}
+
+.solution-card + .solution-card{
+  margin-top:clamp(72px, 9vw, 120px);
+}
+
+.solution-card figure{
+  grid-column:3;
+  grid-row:1;
+  justify-self:end;
+  margin:0;
+  aspect-ratio:auto;
+}
+.solution-card figure img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.solution-card .solution-copy{
+  grid-column:2;
+  grid-row:1;
+  padding:0;
+}
+
+.solution-card h3{
+  font-size:clamp(28px, 3vw, 46px);
+  line-height:1.02;
+  letter-spacing:-.02em;
+  margin:0 0 16px;
+}
+.solution-card .solution-copy>p{
+  font-size:17px;
+  line-height:1.55;
+  max-width:34ch;
+}
+.solution-card ul{
+  margin:20px 0 0;
+}
+
+/* Fotos desiguais: 4:5, 3:2, quadrada, repetindo. Nenhuma linha repete a
+   anterior, que e o que impede a leitura de "grade". */
+.solution-card:nth-child(6n+1) figure{width:300px}
+.solution-card:nth-child(6n+2) figure{width:380px}
+.solution-card:nth-child(6n+3) figure{width:230px}
+.solution-card:nth-child(6n+4) figure{width:340px}
+.solution-card:nth-child(6n+5) figure{width:260px}
+.solution-card:nth-child(6n+6) figure{width:400px}
+
+.solution-card:nth-child(6n+1) figure img{aspect-ratio:4/5;object-fit:cover}
+.solution-card:nth-child(6n+2) figure img{aspect-ratio:3/2;object-fit:cover}
+.solution-card:nth-child(6n+3) figure img{aspect-ratio:1/1;object-fit:cover}
+.solution-card:nth-child(6n+4) figure img{aspect-ratio:4/5;object-fit:cover}
+.solution-card:nth-child(6n+5) figure img{aspect-ratio:1/1;object-fit:cover}
+.solution-card:nth-child(6n+6) figure img{aspect-ratio:3/2;object-fit:cover}
+
+/* --------------------------------------------------------------------------
+   3. COMO CUIDAMOS — o eixo tambem organiza o metodo
+   -------------------------------------------------------------------------- */
+
+.method-grid{
+  grid-template-columns:var(--eixo) minmax(0,1fr);
+  column-gap:48px;
+}
+.method .section-heading{padding-left:0}
+.method-steps{grid-column:2}
+.method-steps h3{
+  font-size:clamp(24px, 2.4vw, 34px);
+  line-height:1.05;
+  letter-spacing:-.02em;
+}
+.method-steps p{
+  font-size:17px;
+  max-width:40ch;
+}
+
+/* --------------------------------------------------------------------------
+   4. DUVIDAS — "A band per question"
+   Cada pergunta ganha uma banda inteira, alternando dois tons chapados.
+   Sem acordeao: todas as respostas visiveis.
+   -------------------------------------------------------------------------- */
+
+.faq{padding-left:0;padding-right:0}
+.faq-grid{
+  display:block;
+}
+.faq .section-heading{
+  padding:0 clamp(20px, 5vw, 64px) clamp(40px, 6vw, 80px);
+  max-width:none;
+}
+.faq .section-heading h2{
+  font-size:clamp(40px, 6vw, 92px);
+  line-height:.95;
+  letter-spacing:-.03em;
+}
+
+.accordion{display:block}
+
+.accordion .faq-item{
+  display:grid;
+  grid-template-columns:var(--eixo) minmax(0,1fr);
+  column-gap:48px;
+  padding:clamp(36px, 4.5vw, 56px) clamp(20px, 5vw, 64px);
+  margin:0;
+  background:var(--paper);
+}
+.accordion .faq-item:nth-child(even){
+  background:#e7ebf0;
+}
+.accordion .faq-item+.faq-item{margin-top:0}
+
+.accordion .faq-item h3{
+  grid-column:1;
+  font-family:var(--serif);
+  font-size:clamp(22px, 2.4vw, 30px);
+  line-height:1.1;
+  letter-spacing:-.02em;
+  padding:0;
+  list-style:none;
+  cursor:default;
+}
+
+
+
+.accordion .faq-item p{
+  grid-column:2;
+  font-size:18px;
+  line-height:1.5;
+  max-width:52ch;
+  margin:0;
+}
+
+/* --------------------------------------------------------------------------
+   5. O DIAGRAMA DO LEGATO — "Many into one"
+   Disperso, comprimido, ordenado. As notas que nao se cortam.
+   -------------------------------------------------------------------------- */
+
+.legato{
+  background:var(--navy);
+  color:#fff;
+  padding:var(--ar) 0;
+}
+.legato-grid{
+  display:grid;
+  grid-template-columns:var(--eixo) minmax(0,1fr);
+  column-gap:48px;
+  align-items:start;
+}
+.legato h2{
+  grid-column:1;
+  font-size:clamp(30px, 3.4vw, 52px);
+  line-height:1;
+  letter-spacing:-.03em;
+  margin:0;
+}
+.legato-intro{
+  grid-column:2;
+  font-size:18px;
+  line-height:1.55;
+  max-width:44ch;
+  margin:0;
+  color:#c9d3dd;
+}
+.legato-figure{
+  grid-column:1 / -1;
+  margin:clamp(40px, 5vw, 72px) 0 0;
+}
+.legato-figure svg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.legato-legend{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:32px;
+  margin:28px 0 0;
+  padding:0;
+  list-style:none;
+}
+.legato-legend strong{
+  display:block;
+  font-family:var(--sans);
+  font-size:18px;
+  margin-bottom:6px;
+}
+.legato-legend span{
+  font-size:16px;
+  line-height:1.5;
+  color:#c9d3dd;
+}
+
+/* --------------------------------------------------------------------------
+   6. Telefone — o eixo recolhe para a margem
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px){
+  :root{--eixo:30%}
+  .solution-card{grid-template-columns:var(--eixo) minmax(0,1fr)}
+  .solution-card figure{grid-column:2;grid-row:2;justify-self:start;margin-top:24px}
+  .solution-card .solution-copy{grid-column:2;grid-row:1}
+}
+
+@media (max-width: 700px){
+  :root{--eixo:0px}
+
+  .solutions .section-heading{padding-left:0}
+  .solutions .section-heading h2{font-size:clamp(30px, 8.5vw, 44px)}
+
+  .solution-card{grid-template-columns:minmax(0,1fr);column-gap:0}
+  .solution-card .solution-copy,
+  .solution-card figure{grid-column:1}
+  .solution-card .solution-copy{grid-row:1}
+  .solution-card figure{grid-row:2;justify-self:start;margin-top:20px}
+  .solution-card + .solution-card{margin-top:64px}
+
+  /* larguras alternadas no telefone, como o blueprint pede */
+  .solution-card:nth-child(3n+1) figure{width:100%}
+  .solution-card:nth-child(3n+2) figure{width:72%;justify-self:end}
+  .solution-card:nth-child(3n+3) figure{width:58%}
+
+  .method-grid,
+  .legato-grid{grid-template-columns:minmax(0,1fr)}
+  .method-steps,
+  .legato h2,
+  .legato-intro{grid-column:1}
+  .legato-intro{margin-top:16px}
+
+  .accordion .faq-item{
+    grid-template-columns:minmax(0,1fr);
+    row-gap:12px;
+  }
+  .accordion summary,
+  .accordion .faq-item p{grid-column:1}
+
+  .legato-legend{grid-template-columns:minmax(0,1fr);gap:20px}
+}
+
+/* --------------------------------------------------------------------------
+   7. HERO, segunda passada — "Narrow talk, wide headline" de verdade
+   O titulo atravessa as 12 colunas; a conversa e a foto ficam abaixo dele.
+   Sem isso o titulo em escala de poster nao cabe e quebra em 4 linhas.
+   -------------------------------------------------------------------------- */
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:repeat(12, minmax(0,1fr));
+  column-gap:24px;
+  row-gap:0;
+  align-items:start;
+}
+.hero-copy{display:contents}
+
+#hero-title{
+  grid-column:1 / -1;
+  grid-row:1;
+  font-size:clamp(44px, 9.2vw, 146px);
+  line-height:.9;
+  margin:0 0 clamp(28px, 4vw, 56px);
+}
+.hero-service-line{grid-column:1 / 7; grid-row:2}
+.hero-description {grid-column:1 / 7; grid-row:3}
+.hero-actions     {grid-column:1 / 7; grid-row:4}
+.hero-note        {grid-column:1 / 7; grid-row:5}
+.hero-visual      {grid-column:7 / -1; grid-row:2 / 6; margin:0}
+
+@media (max-width: 900px){
+  .hero-service-line,.hero-description,.hero-actions,.hero-note{grid-column:1 / 8}
+  .hero-visual{grid-column:8 / -1}
+}
+@media (max-width: 700px){
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  #hero-title{font-size:clamp(38px, 11.5vw, 56px); margin-bottom:24px}
+  .hero-service-line,.hero-description,.hero-actions,.hero-note,.hero-visual{grid-column:1}
+  .hero-visual{grid-row:auto; margin-top:28px}
+}
+
+/* --------------------------------------------------------------------------
+   8. Metodo: o titulo ganha a linha inteira; so os passos pendem do eixo.
+   Preso em 35% ele quebrava em 4 linhas.
+   -------------------------------------------------------------------------- */
+
+.method-grid{grid-template-columns:var(--eixo) minmax(0,1fr)}
+.method .section-heading{grid-column:1 / -1; max-width:52ch; margin-bottom:clamp(40px,5vw,72px)}
+.method-steps{grid-column:2; grid-row:2}
+.method .section-heading h2{font-size:clamp(32px, 3.8vw, 56px); line-height:1}
+
+/* A foto abrange as linhas 2-5 e estava esticando todas elas, abrindo um vao
+   entre a linha de servicos e o paragrafo. Linhas passam a medir pelo
+   conteudo; a foto se alinha ao topo e nao empurra mais nada. */
+.hero-grid{grid-auto-rows:min-content; row-gap:0}
+.hero-visual{align-self:start}
+.hero-service-line{margin-bottom:20px}
+.hero-description{margin:0 0 28px}
+.hero-actions{margin:0 0 18px}
+
+/* A foto do hero precisa de presenca: nas paginas bem pontuadas do estudo a
+   midia do hero cobre metade da primeira tela em 68% dos casos. */
+.hero-visual img{
+  width:100%;
+  height:clamp(340px, 52vh, 600px);
+  object-fit:cover;
+  display:block;
+}
+@media (max-width:700px){
+  .hero-visual img{height:clamp(260px, 42vh, 380px)}
+}
+
+/* --------------------------------------------------------------------------
+   9. Hero, forma final. O <h1> saiu do .hero-copy, entao a coluna da
+   esquerda volta a ser um bloco so e a foto nao estica mais nada.
+   -------------------------------------------------------------------------- */
+.hero-copy{display:block; grid-column:1 / 7; grid-row:2}
+.hero-service-line,.hero-description,.hero-actions,.hero-note{grid-column:auto; grid-row:auto}
+.hero-visual{grid-column:7 / -1; grid-row:2}
+
+@media (max-width:900px){
+  .hero-copy{grid-column:1 / 8}
+  .hero-visual{grid-column:8 / -1}
+}
+@media (max-width:700px){
+  .hero-copy,.hero-visual{grid-column:1; grid-row:auto}
+}
+
+/* ==========================================================================
+   10. MOVIMENTO (passo 9 da skill)
+   Movimento assinatura do sheet: "Masked headline".
+   Tudo em transform/opacity. Sem script o conteudo aparece inteiro.
+   ========================================================================== */
+
+/* --- 10.1 o movimento assinatura: o titulo sobe por tras de uma mascara --- */
+@keyframes legato-mask{
+  from{transform:translateY(100%)}
+  to  {transform:translateY(0)}
+}
+#hero-title .linha{
+  display:block;
+  overflow:hidden;          /* a mascara */
+}
+#hero-title .linha > span{
+  display:block;
+  animation:legato-mask .9s cubic-bezier(.16,.84,.26,1) both;
+}
+#hero-title .linha:nth-child(2) > span{animation-delay:.12s}
+
+/* --- 10.2 entrada escalonada das partes de cada secao ---
+   O observador ja adiciona .visible; aqui cada filho entra em sequencia. */
+/* IMPORTANTE: a entrada e feita por ANIMACAO, nunca por um estado escondido
+   em repouso. Se o observador nao disparar (script fora do ar, navegador antigo,
+   rolagem rapida), o conteudo simplesmente aparece, porque so existe regra para
+   o estado .visible. Esconder por padrao custou 358 blocos invisiveis na
+   primeira tentativa desta camada. */
+@keyframes legato-sobe{
+  from{opacity:0; transform:translateY(18px)}
+  to  {opacity:1; transform:none}
+}
+@keyframes legato-doEixo{
+  from{opacity:0; transform:translateX(-14px)}
+  to  {opacity:1; transform:none}
+}
+.motion-ready .reveal.visible > *{
+  animation:legato-sobe .6s cubic-bezier(.2,.7,.2,1) both;
+}
+.motion-ready .reveal.visible > *:nth-child(2){animation-delay:.07s}
+.motion-ready .reveal.visible > *:nth-child(3){animation-delay:.14s}
+.motion-ready .reveal.visible > *:nth-child(4){animation-delay:.21s}
+.motion-ready .reveal.visible > *:nth-child(5){animation-delay:.28s}
+
+/* as linhas de solucao entram do eixo, nao de baixo: reforca a linha */
+.motion-ready .solution-card.visible .solution-copy{
+  animation:legato-doEixo .7s cubic-bezier(.2,.7,.2,1) both;
+}
+.motion-ready .solution-card.visible figure{
+  animation:legato-sobe .7s cubic-bezier(.2,.7,.2,1) .08s both;
+}
+.solution-card .solution-copy,
+.solution-card figure{transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
+
+/* --- 10.3 retorno em cada controle --- */
+.button,.text-link,.service-details-link,.hero-secondary,.whatsapp-float{
+  transition:transform .18s cubic-bezier(.2,.7,.2,1), opacity .18s ease, background-color .18s ease, color .18s ease;
+}
+.button:hover,.whatsapp-float:hover{transform:translateY(-2px)}
+.button:active,.whatsapp-float:active{transform:translateY(1px) scale(.99)}
+.text-link:hover,.service-details-link:hover,.hero-secondary:hover{transform:translateX(3px)}
+.solution-card:hover figure img{transform:scale(1.03)}
+.solution-card figure img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+
+/* --- 10.4 uma imagem em movimento: deriva lenta na foto do hero --- */
+@keyframes legato-deriva{
+  from{transform:scale(1.04) translate3d(0,0,0)}
+  to  {transform:scale(1.12) translate3d(0,-1.5%,0)}
+}
+.hero-visual img{
+  animation:legato-deriva 26s ease-in-out infinite alternate both;
+  will-change:transform;
+}
+
+/* --- 10.5 o diagrama do legato se junta ao entrar --- */
+.legato-figure rect{
+  transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .9s ease;
+}
+.motion-ready .legato-figure.visible rect{animation:legato-sobe .9s cubic-bezier(.2,.7,.2,1) both}
+
+/* --- 10.6 sem movimento para quem pediu sem movimento --- */
+@media (prefers-reduced-motion: reduce){
+  #hero-title .linha > span{animation:none}
+  .hero-visual img{animation:none}
+  .motion-ready .reveal.visible > *,
+  .motion-ready .solution-card.visible .solution-copy,
+  .motion-ready .solution-card.visible figure,
+  .motion-ready .legato-figure.visible rect{animation:none; opacity:1; transform:none}
+  .button:hover,.whatsapp-float:hover,.text-link:hover,
+  .service-details-link:hover,.hero-secondary:hover,
+  .solution-card:hover figure img{transform:none}
+}
+
+/* A mascara (overflow:hidden) cortava os descendentes do "g" e do "p" com
+   line-height .9. Folga embaixo, compensada por margem negativa, para a
+   mascara seguir funcionando sem comer a letra. */
+#hero-title .linha{
+  padding-bottom:.14em;
+  margin-bottom:-.14em;
+}
