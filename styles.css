@@ -138,3 +138,40 @@ h1 em,h2 em,h3 em,.hero-title em{color:inherit;font-style:normal}
 .solutions em,.priorities em,.specialist em,.editorial em,.faq em,
 .market-brands em,.story em,.method em,.final-cta em,.confidence em,
 .hero em{color:inherit;font-style:normal}
+
+/* --- medida dos titulos ---
+   Titulos de duas frases em coluna de .85fr quebravam em 3 linhas.
+   O skill manda alargar a medida antes de reduzir o corpo. */
+.specialist-grid{grid-template-columns:1fr 1fr;gap:64px}
+.faq-grid{grid-template-columns:1fr 1.15fr;gap:64px}
+.section-heading{max-width:860px}
+
+/* Em telas estreitas a medida acaba; ai sim um passo de corpo. */
+@media(max-width:860px){
+  .specialist-grid h2,.faq-grid h2,.final-cta h2,.market-brands h2{font-size:32px}
+}
+@media(max-width:700px){
+  .specialist-grid,.faq-grid{grid-template-columns:1fr}
+  .specialist-grid h2,.faq-grid h2,.final-cta h2,.market-brands h2{font-size:30px}
+  .confidence-grid h3,.priorities-panel h3{font-size:25px}
+}
+
+/* Ultimo recurso do skill: um passo de corpo, dentro da escala que ja
+   existe na pagina, nos titulos de duas frases que ainda nao cabem. */
+.specialist-grid h2{font-size:46px}
+.priorities-panel h3,.confidence-grid h3{font-size:24px;line-height:1.2}
+@media(max-width:860px){
+  .specialist-grid h2{font-size:30px}
+  .priorities-panel h3,.confidence-grid h3{font-size:22px}
+}
+@media(max-width:700px){
+  .section-heading h2,.specialist-grid h2{font-size:30px}
+  .priorities-panel h3,.confidence-grid h3{font-size:21px}
+}
+
+/* Titulos dos guias (cards e modal): perguntas inteiras em coluna
+   estreita. Um passo abaixo para caberem em duas linhas. */
+.guide-card h3{font-size:24px;line-height:1.22}
+.guide-dialog h2{font-size:26px;line-height:1.22}
+@media(max-width:860px){.guide-card h3{font-size:22px}.guide-dialog h2{font-size:24px}}
+@media(max-width:700px){.guide-card h3{font-size:21px}.guide-dialog h2{font-size:22px}}
