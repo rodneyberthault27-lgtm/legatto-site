@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legatto — três direções de marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#101114;color:#E9E7E4;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.55}
+.wrap{max-width:1100px;margin-inline:auto;padding:0 24px}
+
+.topo{padding:72px 0 48px}
+.topo h1{font-family:'Inter',sans-serif;font-size:clamp(28px,4vw,46px);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin:0 0 16px}
+.topo p{max-width:62ch;color:#A8A5A0;margin:0 0 10px}
+.topo .nota{font-size:14px;color:#7D7A75;max-width:70ch}
+
+.dir{padding:64px 0;border-top:1px solid #26282D}
+.dir-cab{display:grid;grid-template-columns:minmax(0,24ch) minmax(0,1fr);gap:40px;align-items:start;margin-bottom:36px}
+.dir-cab h2{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7D7A75;margin:0 0 8px}
+.dir-cab .nome{font-family:'Inter',sans-serif;font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.1;margin:0;color:#E9E7E4}
+.dir-cab .porque{color:#A8A5A0;margin:0;max-width:56ch}
+.dir-cab .porque b{color:#E9E7E4;font-weight:600}
+
+.fichas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-bottom:28px}
+@media(max-width:820px){.fichas{grid-template-columns:minmax(0,1fr)}.dir-cab{grid-template-columns:minmax(0,1fr);gap:16px}}
+.ficha{background:#16181C;padding:20px;border-radius:2px}
+.ficha h3{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7D7A75;margin:0 0 14px}
+.cores{display:flex;gap:0;border-radius:2px;overflow:hidden}
+.cor{flex:1;height:64px;display:flex;align-items:flex-end;padding:8px;font-size:10px;font-family:'Inter',monospace;letter-spacing:.02em}
+.tipo-amostra{margin:0}
+.tipo-amostra .display{font-size:34px;line-height:1.05;margin:0 0 6px;letter-spacing:-.02em}
+.tipo-amostra .corpo{font-size:15px;margin:0;color:#A8A5A0}
+.tipo-nomes{font-size:12px;color:#7D7A75;margin-top:14px;letter-spacing:.02em}
+
+/* a amostra: cada direção pinta a si mesma */
+.amostra{border-radius:3px;overflow:hidden}
+.hero{padding:clamp(36px,5vw,64px)}
+.hero .marca{font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin:0 0 clamp(28px,4vw,48px);opacity:.75}
+.hero h3{margin:0 0 20px;letter-spacing:-.035em}
+.hero .servicos{font-size:15px;margin:0 0 18px;letter-spacing:.01em}
+.hero .lead{font-size:17px;line-height:1.55;max-width:42ch;margin:0 0 28px;opacity:.82}
+.hero .cta{display:inline-block;padding:14px 26px;font-size:15px;font-weight:600;text-decoration:none}
+.bloco{padding:clamp(28px,4vw,44px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,3vw,40px);align-items:center}
+@media(max-width:820px){.bloco{grid-template-columns:minmax(0,1fr)}}
+.bloco h4{margin:0 0 12px;letter-spacing:-.02em}
+.bloco p{margin:0 0 16px;font-size:15px;line-height:1.55;opacity:.8}
+.bloco ul{margin:0;padding:0;list-style:none;font-size:14px}
+.bloco li{padding:7px 0 7px 18px;position:relative}
+.bloco li::before{content:"";position:absolute;left:0;top:15px;width:7px;height:1px}
+.foto{aspect-ratio:4/3;background-size:cover;background-position:center}
+
+/* ---------- A: Escritório ---------- */
+.a .hero{background:#F4F2ED;color:#15201B}
+.a .hero h3{font-family:'DM Serif Display',serif;font-size:clamp(38px,5.4vw,70px);line-height:.98;font-weight:400}
+.a .hero .servicos{color:#2E6B51;font-weight:500}
+.a .hero .cta{background:#1F4D3A;color:#F4F2ED;border-radius:2px}
+.a .hero .marca{color:#2E6B51}
+.a .bloco{background:#FFFFFF;color:#15201B}
+.a .bloco h4{font-family:'DM Serif Display',serif;font-size:27px;font-weight:400}
+.a .bloco li::before{background:#2E6B51}
+.a .tipo-amostra .display{font-family:'DM Serif Display',serif;font-weight:400;color:#E9E7E4}
+
+/* ---------- B: Conversa ---------- */
+.b .hero{background:#FBF7F1;color:#211C17}
+.b .hero h3{font-family:'Fraunces',serif;font-size:clamp(36px,5.2vw,66px);line-height:1.0;font-weight:600}
+.b .hero .servicos{color:#B4552A;font-weight:600}
+.b .hero .cta{background:#C56A3C;color:#FFF9F3;border-radius:999px}
+.b .hero .marca{color:#B4552A}
+.b .bloco{background:#F3EADF;color:#211C17}
+.b .bloco h4{font-family:'Fraunces',serif;font-size:26px;font-weight:600}
+.b .bloco li::before{background:#C56A3C}
+.b .tipo-amostra .display{font-family:'Fraunces',serif;font-weight:600;color:#E9E7E4}
+.b body,.b .hero .lead{font-family:'Work Sans',sans-serif}
+.b .hero .lead,.b .hero .servicos,.b .hero .cta,.b .bloco p,.b .bloco li{font-family:'Work Sans',sans-serif}
+
+/* ---------- C: Instrumento ---------- */
+.c .hero{background:#0B0B0D;color:#F2F2F3}
+.c .hero h3{font-family:'Jost',sans-serif;font-size:clamp(38px,5.6vw,72px);line-height:.96;font-weight:500}
+.c .hero .servicos{color:#5B83F5;font-weight:500}
+.c .hero .cta{background:#2F5BEA;color:#FFFFFF;border-radius:2px}
+.c .hero .marca{color:#5B83F5}
+.c .bloco{background:#15161A;color:#F2F2F3}
+.c .bloco h4{font-family:'Jost',sans-serif;font-size:26px;font-weight:500}
+.c .bloco li::before{background:#2F5BEA}
+.c .tipo-amostra .display{font-family:'Jost',sans-serif;font-weight:500;color:#E9E7E4}
+.c .hero .lead,.c .hero .servicos,.c .hero .cta,.c .bloco p,.c .bloco li,.c .bloco h4{font-family:'Jost',sans-serif}
+
+.rodape{padding:56px 0 80px;border-top:1px solid #26282D;color:#7D7A75;font-size:14px}
+.rodape p{max-width:68ch}
+.rodape code{background:#16181C;padding:2px 6px;border-radius:2px;font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="wrap topo">
+  <h1>Legatto — três direções de marca</h1>
+  <p>Só o nome permanece. Paleta, tipografia, símbolo e tom estão abertos. Cada direção abaixo mostra a paleta aplicada, o par tipográfico e dois momentos reais do site: o hero e um bloco de serviço, com o texto que já existe.</p>
+  <p class="nota">Nada disso foi para o site. Aponte uma direção e eu construo a partir dela.</p>
+</header>
+
+<!-- ============ A ============ -->
+<section class="wrap dir a">
+  <div class="dir-cab">
+    <div>
+      <h2>Direção A</h2>
+      <p class="nome">Escritório</p>
+    </div>
+    <p class="porque">Verde profundo sobre papel quente. Lê como <b>parecer técnico</b>, não como anúncio de seguro. O verde substitui o dourado como sinal de continuidade e puxa a árvore do símbolo sem precisar desenhá-la. É a direção mais sóbria das três e a que mais combina com “escolhas explicadas com clareza”.</p>
+  </div>
+
+  <div class="fichas">
+    <div class="ficha">
+      <h3>Paleta</h3>
+      <div class="cores">
+        <div class="cor" style="background:#15201B;color:#F4F2ED">#15201B</div>
+        <div class="cor" style="background:#1F4D3A;color:#F4F2ED">#1F4D3A</div>
+        <div class="cor" style="background:#2E6B51;color:#F4F2ED">#2E6B51</div>
+        <div class="cor" style="background:#F4F2ED;color:#15201B">#F4F2ED</div>
+        <div class="cor" style="background:#FFFFFF;color:#15201B">#FFFFFF</div>
+      </div>
+    </div>
+    <div class="ficha">
+      <h3>Tipografia</h3>
+      <div class="tipo-amostra">
+        <p class="display">Proteger o que você construiu</p>
+        <p class="corpo">Uma conversa antes de qualquer proposta.</p>
+      </div>
+      <p class="tipo-nomes">DM Serif Display · Inter</p>
+    </div>
+  </div>
+
+  <div class="amostra">
+    <div class="hero">
+      <p class="marca">Legatto</p>
+      <h3>Você constrói.<br>A gente protege.</h3>
+      <p class="servicos">Seguro Auto · Vida · Saúde · Empresas</p>
+      <p class="lead">A Legatto ajuda você a comparar alternativas, entender as condições e escolher proteção para sua rotina.</p>
+      <a class="cta" href="#">Conversar sobre minha proteção</a>
+    </div>
+    <div class="bloco">
+      <div>
+        <h4>Família e renda</h4>
+        <p>Para quem quer manter a rotina de quem ama, mesmo quando um imprevisto afeta a renda.</p>
+        <ul>
+          <li>Seguro de vida e proteção financeira</li>
+          <li>Necessidades de quem depende de você</li>
+          <li>Coberturas alinhadas à sua fase de vida</li>
+        </ul>
+      </div>
+      <div class="foto" style="background-image:url('../assets/legatto-familia-600.webp')"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B ============ -->
+<section class="wrap dir b">
+  <div class="dir-cab">
+    <div>
+      <h2>Direção B</h2>
+      <p class="nome">Conversa</p>
+    </div>
+    <p class="porque">Terracota sobre creme, serif humanista, cantos arredondados. É a direção <b>mais quente e menos corporativa</b> — tira o seguro do registro frio e coloca no registro de alguém que senta com você. Combina com o fato de o único canal ser WhatsApp e de não haver formulário no site inteiro.</p>
+  </div>
+
+  <div class="fichas">
+    <div class="ficha">
+      <h3>Paleta</h3>
+      <div class="cores">
+        <div class="cor" style="background:#211C17;color:#FBF7F1">#211C17</div>
+        <div class="cor" style="background:#B4552A;color:#FBF7F1">#B4552A</div>
+        <div class="cor" style="background:#C56A3C;color:#FFF9F3">#C56A3C</div>
+        <div class="cor" style="background:#F3EADF;color:#211C17">#F3EADF</div>
+        <div class="cor" style="background:#FBF7F1;color:#211C17">#FBF7F1</div>
+      </div>
+    </div>
+    <div class="ficha">
+      <h3>Tipografia</h3>
+      <div class="tipo-amostra">
+        <p class="display">Proteger o que você construiu</p>
+        <p class="corpo">Uma conversa antes de qualquer proposta.</p>
+      </div>
+      <p class="tipo-nomes">Fraunces · Work Sans</p>
+    </div>
+  </div>
+
+  <div class="amostra">
+    <div class="hero">
+      <p class="marca">Legatto</p>
+      <h3>Você constrói.<br>A gente protege.</h3>
+      <p class="servicos">Seguro Auto · Vida · Saúde · Empresas</p>
+      <p class="lead">A Legatto ajuda você a comparar alternativas, entender as condições e escolher proteção para sua rotina.</p>
+      <a class="cta" href="#">Conversar sobre minha proteção</a>
+    </div>
+    <div class="bloco">
+      <div>
+        <h4>Família e renda</h4>
+        <p>Para quem quer manter a rotina de quem ama, mesmo quando um imprevisto afeta a renda.</p>
+        <ul>
+          <li>Seguro de vida e proteção financeira</li>
+          <li>Necessidades de quem depende de você</li>
+          <li>Coberturas alinhadas à sua fase de vida</li>
+        </ul>
+      </div>
+      <div class="foto" style="background-image:url('../assets/legatto-familia-600.webp')"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ C ============ -->
+<section class="wrap dir c">
+  <div class="dir-cab">
+    <div>
+      <h2>Direção C</h2>
+      <p class="nome">Instrumento</p>
+    </div>
+    <p class="porque">Quase preto, azul elétrico, uma família geométrica só. Lê como <b>ferramenta, não como corretora</b> — mais próximo de um produto digital que de uma seguradora. É a direção mais moderna e a mais arriscada: ganha em presença, perde em calor.</p>
+  </div>
+
+  <div class="fichas">
+    <div class="ficha">
+      <h3>Paleta</h3>
+      <div class="cores">
+        <div class="cor" style="background:#0B0B0D;color:#F2F2F3">#0B0B0D</div>
+        <div class="cor" style="background:#15161A;color:#F2F2F3">#15161A</div>
+        <div class="cor" style="background:#2F5BEA;color:#FFFFFF">#2F5BEA</div>
+        <div class="cor" style="background:#5B83F5;color:#0B0B0D">#5B83F5</div>
+        <div class="cor" style="background:#F2F2F3;color:#0B0B0D">#F2F2F3</div>
+      </div>
+    </div>
+    <div class="ficha">
+      <h3>Tipografia</h3>
+      <div class="tipo-amostra">
+        <p class="display">Proteger o que você construiu</p>
+        <p class="corpo">Uma conversa antes de qualquer proposta.</p>
+      </div>
+      <p class="tipo-nomes">Jost — uma família só, dois pesos</p>
+    </div>
+  </div>
+
+  <div class="amostra">
+    <div class="hero">
+      <p class="marca">Legatto</p>
+      <h3>Você constrói.<br>A gente protege.</h3>
+      <p class="servicos">Seguro Auto · Vida · Saúde · Empresas</p>
+      <p class="lead">A Legatto ajuda você a comparar alternativas, entender as condições e escolher proteção para sua rotina.</p>
+      <a class="cta" href="#">Conversar sobre minha proteção</a>
+    </div>
+    <div class="bloco">
+      <div>
+        <h4>Família e renda</h4>
+        <p>Para quem quer manter a rotina de quem ama, mesmo quando um imprevisto afeta a renda.</p>
+        <ul>
+          <li>Seguro de vida e proteção financeira</li>
+          <li>Necessidades de quem depende de você</li>
+          <li>Coberturas alinhadas à sua fase de vida</li>
+        </ul>
+      </div>
+      <div class="foto" style="background-image:url('../assets/legatto-familia-600.webp')"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap rodape">
+  <p>As três evitam violeta e índigo de propósito: é a cor que mais marca página gerada por IA, e as paletas padrão dos 67 sistemas prontos usam exatamente <code>#8B5CF6</code>. Nenhuma destas veio desse template.</p>
+  <p style="margin-top:14px">A foto é a que já existe no site, só para dar escala real. O símbolo ainda não foi desenhado — isso vem depois que a direção estiver escolhida.</p>
+</footer>
+
+</body>
+</html>
