@@ -42,3 +42,99 @@
 
 /* 4. Scrollbars e controles nativos no tom certo. */
 html{color-scheme:light}
+
+/* ===== tasteskill v2 — passe de house style 2026-10-17 =====
+   Remove os "tells" de pagina gerada que o inspector mediu.
+   Os rotulos, numeros de indice e eyebrows sairam do HTML; aqui ficam
+   os ajustes de tipo, fio e caixa. */
+
+/* Uma face, uma cor no titulo. O realce italico dourado era o move
+   "uma palavra em italico" — o peso passa a vir das palavras. */
+h1 em,h2 em,h3 em,.hero-title em{color:inherit;font-style:normal}
+
+/* Sem fios de 1px: a separacao vem do espaco e do passo de tom. */
+.site-header{border-bottom:none}
+.hero-trust{border-top:none}
+.hero-trust span+span{border-left:none;padding-left:0}
+.pillars{border-top:none;padding-top:0;margin-top:56px}
+
+/* Sem caixa contornada: a superficie se define pelo preenchimento. */
+.solution-card{border:none}
+
+/* Sem sombra no que esta em repouso. O dialog e o botao flutuante
+   ficam, porque de fato flutuam. */
+.button-gold:hover{box-shadow:none}
+
+/* Corpo de texto legivel: 15px -> 16px. */
+.solution-copy>p,.method-steps p,.guide-card>p,.accordion summary,
+.accordion details p,.guide-dialog p,.guide-dialog li,
+.section-heading>p,.hero-description{font-size:16px}
+
+/* Nada que se le fica abaixo de 13px. */
+.main-nav>a:not(.button),.button-small,.footer-meta,.brands-disclaimer,
+.hero-visual figcaption span,.specialist-photo figcaption span{font-size:13px}
+.whatsapp-sub{font-size:12px}
+
+/* Medida de leitura: 90 caracteres por linha era largo demais. */
+.hero-description,.section-heading>p,.story p,.reading-width p{max-width:62ch}
+
+/* --- segunda rodada do passe de house style --- */
+
+/* O <ol> ja carrega a ordem; os numeros desenhados saiam, e com eles
+   a coluna de 42px que os segurava e o fio entre os passos. */
+.method-steps li{grid-template-columns:1fr;border-top:none;padding:22px 0}
+.method-steps li:first-child{padding-top:0}
+
+/* Sublinhado de link e sublinhado, nao fio de 1px. */
+.text-link{border-bottom:none;text-decoration:underline;text-underline-offset:6px;
+           text-decoration-thickness:1px;text-decoration-color:var(--gold)}
+.text-link:hover{text-decoration-color:currentColor}
+
+/* A linha de servicos do hero em caixa normal e tamanho legivel. */
+.hero-service-line{font-size:16px;letter-spacing:0;text-transform:none;font-weight:500}
+
+/* Nada em repouso com sombra. */
+.whatsapp-float{box-shadow:none}
+
+/* --- terceira rodada: fios e caixas restantes --- */
+
+/* FAQ e "confianca": a separacao passa a ser espaco + passo de tom,
+   no lugar dos fios de 1px. */
+.accordion{border-top:none}
+.accordion details{border-bottom:none;padding:4px 0}
+.accordion details+details{margin-top:4px}
+.accordion summary{padding:18px 0}
+.confidence{border-top:none}
+
+/* Superficies definidas pelo preenchimento, nao pelo contorno. */
+.priorities-panel{border:none;background:#fff}
+.brand-card{border:none;background:#fff}
+.priority-options button{border:none;background:#e8ecf1}
+.priority-options button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.dialog-close{border:none;background:#e8ecf1}
+.menu-toggle{border:none;background:#ffffff1f}
+.whatsapp-float{border:none}
+
+/* Piso de 13px no que se le. */
+.whatsapp-sub,.brands-disclaimer,.footer-meta{font-size:13px}
+
+/* Rotulos de categoria das marcas em caixa normal. */
+.brand-card span,.market-brands span{text-transform:none;letter-spacing:0;font-size:13px}
+
+/* --- quarta rodada --- */
+.footer-meta{border-top:none;padding-top:0;margin-top:40px}
+@media(max-width:700px){
+  .hero-visual figcaption span,.hero-trust,.brand-card span,.brands-disclaimer,
+  .service-note,.product-note,.whatsapp-sub,.footer-meta{font-size:13px}
+}
+.brand-groups h3{text-transform:none;letter-spacing:0;font-size:20px;font-family:var(--serif);font-weight:500}
+
+/* Correcao: sem o numero, os pillars voltam a uma coluna
+   (a grade de 32px+1fr estava sobrepondo titulo e texto). */
+.pillars>div{grid-template-columns:1fr;gap:4px}
+
+/* O realce dourado tinha especificidade de classe (.solutions em etc.),
+   entao a regra generica h2 em nao vencia. Igualando o peso: */
+.solutions em,.priorities em,.specialist em,.editorial em,.faq em,
+.market-brands em,.story em,.method em,.final-cta em,.confidence em,
+.hero em{color:inherit;font-style:normal}
