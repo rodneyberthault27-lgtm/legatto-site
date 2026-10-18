@@ -1,0 +1,402 @@
+/* ==========================================================================
+   LEGATTO — direcao "Instrumento"
+   Quase preto, azul eletrico, uma familia geometrica so (Jost).
+   Le como ferramenta, nao como corretora.
+
+   Esta folha entra DEPOIS de styles.css. O site ja e dirigido por tokens,
+   entao a maior parte do trabalho e redefinir :root; o resto sao as cores
+   que estavam fixas no CSS original (29 usos de #fff e alguns cinzas).
+
+   Aplicada nas 11 secoes de uma vez. Meia direcao e pior que nenhuma.
+   ========================================================================== */
+
+:root{
+  /* --- a paleta --- */
+  --fundo:        #0B0B0D;   /* o chao */
+  --fundo-alt:    #121317;   /* campo alternado entre secoes */
+  --superficie:   #15161A;   /* cartoes, paineis, o que flutua */
+  --superficie-2: #1C1E24;   /* um passo acima */
+  --acento:       #2F5BEA;   /* a acao */
+  --acento-claro: #5B83F5;   /* texto de acento, links */
+  --tinta:        #F2F2F3;
+  --tinta-media:  #A0A3AB;
+
+  /* --- os tokens do site, remapeados ---
+     --navy servia de tinta E de fundo no tema claro. Aqui ele vira tinta;
+     cada lugar que o usava como fundo esta sobrescrito mais abaixo. */
+  --navy:     #F2F2F3;
+  --graphite: #A0A3AB;
+  --paper:    #0B0B0D;
+  --blue:     #15161A;
+  --gold:     #5B83F5;
+  --line:     #2A2D3500;
+
+  /* --- uma familia so, dois pesos de trabalho --- */
+  --serif: 'Jost', system-ui, sans-serif;
+  --sans:  'Jost', system-ui, sans-serif;
+}
+
+html{color-scheme:dark}
+body{background:var(--fundo); color:var(--tinta); font-weight:400}
+
+/* ==========================================================================
+   1. CAMPOS — as secoes alternam dois tons, sem fio entre elas
+   ========================================================================== */
+
+.hero,
+.site-header,
+.main-nav,
+.solutions,
+.specialist,
+.editorial,
+.service-hero{background:var(--fundo)}
+
+.story,
+.priorities,
+.market-brands,
+.faq,
+.confidence,
+.service-audience{background:var(--fundo-alt)}
+
+.method{background:var(--superficie)}
+.final-cta{background:var(--acento); color:#fff}
+.legato{background:var(--fundo-alt)}
+
+/* ==========================================================================
+   2. SUPERFICIES — preenchimento, nunca contorno
+   ========================================================================== */
+
+.solution-card,
+.guide-card,
+.priorities-panel,
+.confidence-grid article,
+.service-scope-grid article,
+.specialist-photo figcaption{
+  background:var(--superficie);
+  border:none;
+  box-shadow:none;
+}
+
+.guide-dialog{background:var(--superficie-2); border:none; color:var(--tinta)}
+.guide-dialog::backdrop{background:#000000b8}
+.dialog-close{background:var(--superficie); color:var(--tinta); border:none}
+.dialog-close:hover{background:var(--acento); color:#fff}
+
+/* as marcas sao logos reais de seguradoras: precisam de chao claro para
+   nao perder a cor. E a unica ilha clara da pagina, e e de proposito. */
+.brand-card{background:#F2F2F3; border:none; padding:16px; border-radius:2px}
+.brand-card span{color:#3A3D45}
+.brand-card img{mix-blend-mode:multiply}
+
+/* ==========================================================================
+   3. TIPOGRAFIA — Jost, geometrica, caixa alta so onde ja era
+   ========================================================================== */
+
+h1,h2,h3,h4,.hero-title{
+  font-family:var(--sans);
+  font-weight:500;
+  letter-spacing:-.03em;
+}
+h1,.hero-title,#hero-title{font-weight:600}
+
+body,p,li,a,button,input,figcaption,span{font-family:var(--sans)}
+
+/* o realce dourado em italico era da marca antiga: uma face, uma cor */
+h1 em,h2 em,h3 em,
+.solutions em,.priorities em,.specialist em,.editorial em,
+.faq em,.market-brands em,.story em,.method em,.final-cta em,
+.confidence em,.hero em{
+  color:inherit;
+  font-style:normal;
+  font-weight:600;
+}
+
+/* texto secundario */
+.hero-description,
+.section-heading > p,
+.story-copy p,
+.solution-copy > p,
+.method-steps p,
+.guide-card > p,
+.brands-disclaimer,
+.product-note,
+.service-note,
+.footer-meta,
+.legato-intro{color:var(--tinta-media)}
+
+/* o que era cinza-claro sobre navy agora e cinza sobre quase preto */
+.method .section-heading > p,
+.hero-trust,
+.specialist-photo figcaption span{color:var(--tinta-media)}
+
+/* ==========================================================================
+   4. ACAO — um acento so, chapado, canto reto
+   ========================================================================== */
+
+.button{border:none; border-radius:2px; font-weight:600; letter-spacing:0}
+.button-gold{background:var(--acento); color:#fff}
+.button-gold:hover{background:#4470F0; color:#fff; box-shadow:none}
+.final-cta .button-gold{background:var(--tinta); color:var(--acento)}
+.final-cta .button-gold:hover{background:#fff}
+
+.hero-service-line{color:var(--acento-claro)}
+.hero-secondary,
+.text-link,
+.service-details-link{color:var(--tinta)}
+.text-link,.service-details-link{
+  border-bottom:none;
+  text-decoration:underline;
+  text-underline-offset:6px;
+  text-decoration-thickness:1px;
+  text-decoration-color:var(--acento);
+}
+.text-link:hover,.service-details-link:hover{text-decoration-color:var(--tinta)}
+
+.solution-copy li::marker,
+.service-scope-grid li::marker{color:var(--acento)}
+
+/* o grupo de prioridades: chips, nao caixas contornadas */
+.priority-options button{
+  background:var(--superficie-2);
+  color:var(--tinta);
+  border:none;
+  border-radius:2px;
+}
+.priority-options button:hover{background:#262931}
+.priority-options button[aria-pressed="true"]{background:var(--acento); color:#fff}
+.priority-options button:before{display:none}
+
+/* ==========================================================================
+   5. CABECALHO E RODAPE
+   ========================================================================== */
+
+.site-header{border-bottom:none; box-shadow:none; backdrop-filter:none}
+.main-nav > a:not(.button){color:var(--tinta); font-weight:400}
+.main-nav > a:not(.button):hover{color:var(--acento-claro)}
+.menu-toggle{background:var(--superficie-2); border:none}
+.menu-toggle span{background:var(--tinta)}
+
+footer{background:var(--fundo); color:var(--tinta)}
+.footer-meta{border-top:none; padding-top:0; margin-top:40px}
+.footer-links a{color:var(--tinta-media)}
+.footer-links a:hover{color:var(--acento-claro)}
+
+/* o WhatsApp mantem o verde dele: e a cor do canal, nao da marca */
+.whatsapp-float{border:none; box-shadow:none}
+
+/* a barra de progresso vira o unico fio da pagina, e ela e funcional */
+.scroll-progress span{background:var(--acento)}
+
+/* ==========================================================================
+   6. FOCO — o anel acompanha o acento, com contraste contra o quase preto
+   ========================================================================== */
+
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--acento-claro);
+  outline-offset:4px;
+}
+
+/* ==========================================================================
+   7. FOTOS — um tratamento so, levemente recuadas do branco puro
+   ========================================================================== */
+
+.solution-card figure,
+.hero-visual,
+.specialist-photo{background:var(--superficie-2)}
+.solution-card figure img,
+.hero-visual img,
+.specialist-photo img{filter:saturate(.92) contrast(1.04)}
+
+/* ==========================================================================
+   8. MOVIMENTO
+   A entrada e por ANIMACAO, nunca por estado escondido em repouso: so
+   existe regra para .visible, entao se o observador nao disparar o
+   conteudo simplesmente aparece.
+   ========================================================================== */
+
+.motion-ready .reveal{opacity:1; transform:none}
+
+@keyframes inst-sobe { from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none} }
+@keyframes inst-lado { from{opacity:0; transform:translateX(-16px)} to{opacity:1; transform:none} }
+@keyframes inst-entra{ from{opacity:0} to{opacity:1} }
+@keyframes inst-risca{ from{transform:scaleX(0)} to{transform:scaleX(1)} }
+
+.motion-ready .reveal.visible > *{animation:inst-sobe .6s cubic-bezier(.2,.7,.2,1) both}
+.motion-ready .reveal.visible > *:nth-child(2){animation-delay:.07s}
+.motion-ready .reveal.visible > *:nth-child(3){animation-delay:.14s}
+.motion-ready .reveal.visible > *:nth-child(4){animation-delay:.21s}
+
+.motion-ready .solution-card.visible{animation:inst-sobe .7s cubic-bezier(.2,.7,.2,1) both}
+.motion-ready .solutions-grid .visible:nth-child(2){animation-delay:.07s}
+.motion-ready .solutions-grid .visible:nth-child(3){animation-delay:.14s}
+
+.motion-ready .method-steps li.visible{animation:inst-lado .65s cubic-bezier(.2,.7,.2,1) both}
+.motion-ready .guide-card.visible,
+.motion-ready .confidence-grid article.visible{animation:inst-sobe .6s cubic-bezier(.2,.7,.2,1) both}
+.motion-ready .brand-card.visible{animation:inst-entra .5s ease both}
+
+/* um risco de acento marca cada cabecalho que entra */
+.section-heading{position:relative}
+.motion-ready .section-heading.visible::before{
+  content:"";
+  position:absolute; left:0; top:-16px;
+  width:40px; height:2px;
+  background:var(--acento);
+  transform-origin:left center;
+  animation:inst-risca .6s cubic-bezier(.2,.7,.2,1) both;
+}
+
+/* retorno em cada controle */
+.button,.text-link,.service-details-link,.hero-secondary,
+.whatsapp-float,.priority-options button,.menu-toggle{
+  transition:transform .18s cubic-bezier(.2,.7,.2,1),
+             background-color .18s ease, color .18s ease;
+}
+.button:hover,.whatsapp-float:hover{transform:translateY(-2px)}
+.button:active,.whatsapp-float:active{transform:translateY(1px) scale(.99)}
+.text-link:hover,.service-details-link:hover,.hero-secondary:hover{transform:translateX(3px)}
+.priority-options button:hover{transform:translateX(3px)}
+.solution-card figure img{transition:transform .8s cubic-bezier(.2,.7,.2,1), filter .4s ease}
+.solution-card:hover figure img{transform:scale(1.04); filter:saturate(1) contrast(1.06)}
+
+@media (prefers-reduced-motion: reduce){
+  .motion-ready .reveal.visible > *,
+  .motion-ready .solution-card.visible,
+  .motion-ready .method-steps li.visible,
+  .motion-ready .guide-card.visible,
+  .motion-ready .confidence-grid article.visible,
+  .motion-ready .brand-card.visible{animation:none; opacity:1; transform:none}
+  .motion-ready .section-heading.visible::before{animation:none; transform:none}
+  .button:hover,.whatsapp-float:hover,.text-link:hover,
+  .service-details-link:hover,.hero-secondary:hover,
+  .priority-options button:hover,
+  .solution-card:hover figure img{transform:none}
+}
+
+/* O CTA final tem fundo de acento: todo texto nele vai a branco.
+   Medido: o cinza herdado dava 3.64:1, abaixo do minimo de 4.5. */
+.final-cta,
+.final-cta p,
+.final-cta span,
+.final-cta h2,
+.final-cta .contact-schedule,
+.final-cta .section-heading > p{color:#fff}
+.final-cta .text-link{color:#fff; text-decoration-color:#ffffff99}
+/* o styles.css usa .final-cta p:not(.eyebrow), de peso maior que
+   .final-cta p; aqui o seletor e identico para vencer pela ordem */
+.final-cta p:not(.eyebrow){color:#fff}
+.contact-action > span{color:#fff}
+
+/* ==========================================================================
+   9. CAMADA PREMIUM — skill premium-web-design (Lucxar)
+   Tokens, escala de espaco, raio, curvas de easing e ritmo de secao.
+   A paleta e a tipografia da direcao Instrumento permanecem.
+   ========================================================================== */
+
+:root{
+  /* espaco em grade de 8px */
+  --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;   --space-6:1.5rem;
+  --space-8:2rem;   --space-12:3rem;  --space-16:4rem;  --space-20:5rem;
+  --section-sm:clamp(3rem, 6vw, 5rem);
+  --section-md:clamp(5rem, 10vw, 7.5rem);
+  --section-lg:clamp(7.5rem, 14vw, 12.5rem);
+
+  /* raio: uma escala so na pagina inteira */
+  --radius-sm:4px;  --radius-md:8px;  --radius-lg:12px; --radius-xl:16px;
+
+  /* curvas: reveals em expo, UI em quart. Nunca linear. */
+  --ease-out-expo:cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart:cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-base:200ms var(--ease-out-quart);
+}
+
+/* --- Lei 5: espaco branco e luxo --- */
+.section-pad{padding-block:var(--section-md)}
+.hero{padding-block:var(--section-lg) var(--section-md)}
+.final-cta{padding-block:var(--section-md)}
+.market-brands,.confidence{padding-block:var(--section-sm)}
+
+/* titulo com mais ar acima que abaixo (1.5-2x) */
+.section-heading{margin-bottom:var(--space-8)}
+.section-heading + *{margin-top:0}
+
+/* --- Lei 10: uma escala de raio --- */
+.button,.priority-options button,.dialog-close{border-radius:var(--radius-sm)}
+.solution-card,.guide-card,.priorities-panel,
+.confidence-grid article,.brand-card{border-radius:var(--radius-md)}
+.solution-card figure,.hero-visual,.specialist-photo{border-radius:var(--radius-md); overflow:hidden}
+.guide-dialog{border-radius:var(--radius-xl)}
+
+/* --- Lei 3: hierarquia de tipo, fluida --- */
+#hero-title,.hero-title{font-size:clamp(2.747rem, 2.2rem + 2.5vw, 3.9rem); line-height:1.08}
+.section-heading h2,.legato h2{font-size:clamp(1.758rem, 1.55rem + .95vw, 2.4rem); line-height:1.15}
+.solution-card h3,.guide-card h3,.method-steps h3{
+  font-size:clamp(1.406rem, 1.3rem + .5vw, 1.75rem); line-height:1.2;
+}
+.confidence-grid h3,.brand-groups h3{font-size:1.25rem; line-height:1.25}
+body{font-size:clamp(1rem, .95rem + .25vw, 1.0625rem); line-height:1.65}
+.hero-description{font-size:clamp(1.0625rem, 1rem + .3vw, 1.1875rem); line-height:1.6}
+
+/* medida de leitura entre 50 e 75 caracteres */
+.hero-description,.section-heading > p,.story-copy p,
+.solution-copy > p,.method-steps p,.guide-card > p{max-width:68ch}
+
+/* --- Lei 6: animar com proposito, curvas do skill --- */
+.motion-ready .reveal.visible > *,
+.motion-ready .solution-card.visible,
+.motion-ready .guide-card.visible,
+.motion-ready .confidence-grid article.visible{
+  animation-timing-function:var(--ease-out-expo);
+  animation-duration:.55s;
+}
+.motion-ready .method-steps li.visible{animation-timing-function:var(--ease-out-expo)}
+.motion-ready .section-heading.visible::before{animation-timing-function:var(--ease-out-expo)}
+
+.button,.text-link,.service-details-link,.hero-secondary,
+.whatsapp-float,.priority-options button,.menu-toggle{
+  transition:transform var(--transition-base),
+             background-color var(--transition-base),
+             color var(--transition-base);
+}
+.solution-card{transition:transform 300ms var(--ease-out-quart)}
+.solution-card:hover{transform:translateY(-2px)}
+.solution-card figure img{transition:transform .7s var(--ease-out-expo), filter .3s var(--ease-out-quart)}
+
+/* --- Lei 1: a primeira tela precisa de um elemento dominante ---
+   Reduzir o H1 para a faixa 48-64 tirou o ponto focal: o inspector
+   acusou "no dominant element". Volta para o token --text-5xl do skill
+   e a foto ganha presenca. Abaixo de 900px o hero empilha, senao o
+   titulo fica preso numa coluna de ~380px e quebra em tres linhas. */
+
+#hero-title,.hero-title{
+  font-size:clamp(2.9rem, 2.1rem + 3.6vw, 4.6rem);
+  line-height:1.04;
+  letter-spacing:-.035em;
+}
+
+.hero-visual img{
+  height:clamp(300px, 46vh, 540px);
+  object-fit:cover;
+  width:100%;
+  display:block;
+}
+
+@media (max-width: 900px){
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-copy,.hero-visual{grid-column:1}
+  .hero-visual{margin-top:var(--space-8)}
+  #hero-title,.hero-title{font-size:clamp(2.4rem, 7.4vw, 3.4rem)}
+}
+
+/* --- ritmo final ---
+   O titulo entrava a 228px do topo da janela (92 do header + 136). A
+   Lei 1 pede o ponto focal alto, em padrao F: o hero perde um passo de
+   padding no topo e a foto ganha o espaco. O resto das secoes fica no
+   piso da faixa do skill (80px) em vez do teto, porque a pagina ja
+   estava com 10,7 telas para 1135 palavras. */
+.hero{padding-block:clamp(3.5rem, 6vw, 5.5rem) var(--section-md)}
+.section-pad{padding-block:clamp(4rem, 7vw, 5.5rem)}
+.market-brands,.confidence{padding-block:clamp(3rem, 5vw, 4rem)}
+
+/* cabecalho e corpo mais proximos dentro da secao */
+.section-heading{margin-bottom:var(--space-6)}
