@@ -400,3 +400,90 @@ body{font-size:clamp(1rem, .95rem + .25vw, 1.0625rem); line-height:1.65}
 
 /* cabecalho e corpo mais proximos dentro da secao */
 .section-heading{margin-bottom:var(--space-6)}
+
+/* ==========================================================================
+   10. AUDITORIA DOS 14 AI TELLS (premium-web-design)
+   Cinco falhas medidas na pagina no ar. Correcao de cada uma.
+   ========================================================================== */
+
+/* --- Tell 13: contraste de peso timido ---
+   Medido: 400 (86x), 500 (32x), 600 (9x). Nenhum 300, nenhum 700.
+   O skill pede salto dramatico: 300 vs 700. Jost ja carrega os dois. */
+body,p,li,.hero-description,.section-heading > p,
+.story-copy p,.solution-copy > p,.method-steps p,
+.guide-card > p,.legato-intro,.brands-disclaimer{font-weight:300}
+h1,h2,h3,h4,#hero-title,.hero-title,
+.section-heading h2,.solution-card h3,.guide-card h3,
+.method-steps h3,.confidence-grid h3,.brand-groups h3{font-weight:700}
+.button,.text-link,.service-details-link,.main-nav > a{font-weight:500}
+strong{font-weight:600}
+
+/* --- Tells 5 e 10: raio uniforme, nada afiado ---
+   Autoridade editorial vem do contraste entre afiado e macio.
+   A acao fica reta; o conteudo fica macio. */
+.button,.priority-options button{border-radius:0}
+.hero-visual,.solution-card figure,.specialist-photo{border-radius:0}
+.solution-card,.guide-card,.priorities-panel,
+.confidence-grid article{border-radius:var(--radius-md)}
+.brand-card{border-radius:var(--radius-sm)}
+.guide-dialog{border-radius:var(--radius-xl)}
+
+/* --- Tell 7: grade de cards identica ---
+   Medido: seis cards, todos com 294px. Vira bento assimetrico,
+   alternando o lado largo linha a linha (tambem atende "media
+   alternation" do Section Flow). */
+.solutions-grid{grid-template-columns:repeat(6, minmax(0,1fr))}
+.solution-card:nth-child(1){grid-column:span 4}
+.solution-card:nth-child(2){grid-column:span 2}
+.solution-card:nth-child(3){grid-column:span 2}
+.solution-card:nth-child(4){grid-column:span 4}
+.solution-card:nth-child(5){grid-column:span 3}
+.solution-card:nth-child(6){grid-column:span 3}
+/* a foto acompanha a largura do bloco */
+.solution-card:nth-child(1) figure{aspect-ratio:21/9}
+.solution-card:nth-child(2) figure{aspect-ratio:4/5}
+.solution-card:nth-child(3) figure{aspect-ratio:4/5}
+.solution-card:nth-child(4) figure{aspect-ratio:21/9}
+.solution-card:nth-child(5) figure,
+.solution-card:nth-child(6) figure{aspect-ratio:16/9}
+.solution-card figure img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* --- Tell 12: "tres de tudo" ---
+   Nao da para mudar a contagem sem mexer no conteudo, mas da para
+   quebrar a simetria matematica, que e o que entrega. */
+.confidence-grid{grid-template-columns:1.5fr 1fr 1fr}
+.guides-grid{grid-template-columns:1.4fr 1fr 1fr}
+.pillars{grid-template-columns:1.3fr 1fr 1fr}
+
+/* --- Tell 9: secoes cortadas no mesmo molde ---
+   Medido: 8 das 11 com padding identico. Densidade por tipo de secao,
+   seguindo o Content Pacing Guide do skill. */
+.solutions,.faq{padding-block:clamp(5rem, 9vw, 7.5rem)}
+.story,.specialist{padding-block:clamp(4rem, 7vw, 5.5rem)}
+.method,.priorities,.editorial{padding-block:clamp(4.5rem, 8vw, 6.5rem)}
+.market-brands,.confidence{padding-block:clamp(2.5rem, 4.5vw, 3.5rem)}
+.final-cta{padding-block:clamp(3.5rem, 6vw, 5rem)}
+
+/* --- Tell 11: neutros sem croma ---
+   Reforca o vies frio ja existente, para o cinza nao ficar morto. */
+:root{
+  --fundo:        #0A0B0E;
+  --fundo-alt:    #111318;
+  --superficie:   #15171D;
+  --superficie-2: #1C1F27;
+  --tinta-media:  #9BA1AE;
+}
+
+/* --- Botao premium do skill (sem sombra: fundo escuro) --- */
+.button:hover{transform:translateY(-2px)}
+.button:active{transform:translateY(0) scale(.98); transition-duration:100ms}
+
+@media (max-width: 760px){
+  .solution-card:nth-child(n){grid-column:1 / -1}
+  .solution-card figure{aspect-ratio:16/9}
+  .confidence-grid,.guides-grid,.pillars{grid-template-columns:minmax(0,1fr)}
+}
+
+/* A grade de guias virou assimetrica (1.4fr 1fr 1fr) e a pergunta mais
+   longa passou a quebrar em tres linhas. Um passo abaixo resolve. */
+.guide-card h3{font-size:clamp(1.25rem, 1.15rem + .35vw, 1.5rem)}
