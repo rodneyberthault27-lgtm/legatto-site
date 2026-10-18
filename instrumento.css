@@ -487,3 +487,123 @@ strong{font-weight:600}
 /* A grade de guias virou assimetrica (1.4fr 1fr 1fr) e a pergunta mais
    longa passou a quebrar em tres linhas. Um passo abaixo resolve. */
 .guide-card h3{font-size:clamp(1.25rem, 1.15rem + .35vw, 1.5rem)}
+
+/* ==========================================================================
+   11. BRIEF MASTER — hero, arquitetura e CRO
+   ========================================================================== */
+
+/* A headline do brief tem 27 caracteres por linha (contra 14 da anterior).
+   A escala cai para caber em duas linhas na coluna de ~60% do hero, em
+   todas as larguras. O ponto focal se mantem porque nada compete com ela. */
+#hero-title,.hero-title{
+  font-size:clamp(1.75rem, 6.6vw, 3.25rem);
+  line-height:1.06;
+  letter-spacing:-.03em;
+}
+.hero-description{
+  font-size:clamp(1.0625rem, 1rem + .35vw, 1.25rem);
+  line-height:1.55;
+  max-width:46ch;
+  color:var(--tinta-media);
+  margin:0 0 var(--space-8);
+}
+
+/* Dois CTAs bem diferenciados: o primario e um bloco solido de acento,
+   o secundario e fantasma e nunca compete visualmente. */
+.hero-actions{display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-6)}
+.hero-secondary{
+  color:var(--tinta);
+  text-decoration:underline;
+  text-underline-offset:6px;
+  text-decoration-color:var(--acento);
+  text-decoration-thickness:1px;
+  font-weight:500;
+}
+.hero-secondary:hover{text-decoration-color:var(--tinta)}
+
+/* Area de toque confortavel no celular (brief 6). */
+@media (max-width:760px){
+  .hero-actions{flex-direction:column; align-items:stretch; gap:var(--space-4)}
+  .hero-actions .button{width:100%; text-align:center; padding-block:1rem}
+  .hero-secondary{padding-block:.75rem; display:inline-block}
+}
+
+/* --- correcao medida em 375/430/768/1440/1920 ---
+   O h1 do brief tem 27 caracteres por linha e quebrava em 4 linhas em
+   375, 1440 e 1920. A coluna de texto vai para 58% (dentro da faixa
+   55-60% que o brief pede para o hero Split) e a escala fecha nos dois
+   extremos. */
+.hero-copy{grid-column:1 / 8}
+.hero-visual{grid-column:8 / -1}
+#hero-title,.hero-title{font-size:clamp(1.4rem, 3.2vw, 2.9rem)}
+
+@media (max-width:900px){
+  .hero-copy,.hero-visual{grid-column:1}
+  #hero-title,.hero-title{font-size:clamp(1.4rem, 5.6vw, 2.6rem)}
+}
+
+/* Area de toque: medi 1 a 2 CTAs abaixo de 44px em 768, 1440 e 1920. */
+.button,.hero-secondary,.priority-options button,.text-link,
+.service-details-link,.dialog-close{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+}
+.button{justify-content:center}
+.priority-options button{justify-content:flex-start}
+.text-link,.service-details-link{align-items:flex-end}
+
+/* ==========================================================================
+   12. CORRECAO: a grade do hero
+   O styles.css define .hero-grid com DUAS colunas (1.08fr 1fr). As regras
+   grid-column:1/7 e 7/-1 que eu trouxe da folha anterior pressupunham uma
+   grade de 12 colunas que nunca existiu aqui, e criavam 5 faixas
+   implicitas vazias. Media: "423px 392px 0 0 0 0 0".
+   Agora o hero usa a propria grade de duas colunas, na proporcao que o
+   brief pede para o Split: texto 59%, imagem 41%.
+   ========================================================================== */
+.hero-grid{
+  grid-template-columns:1.45fr 1fr;
+  align-items:center;
+}
+.hero-copy,
+.hero-visual{grid-column:auto; grid-row:auto}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-copy,.hero-visual{grid-column:1}
+}
+
+/* A headline do brief e mais longa e precisa de corpo menor para caber em
+   duas linhas, o que tirou o elemento dominante da primeira tela. Em vez
+   de encolher a copy do cliente, a dominancia passa para a fotografia --
+   que o brief tambem pede em destaque. Proporcao 55/45, dentro da faixa
+   do hero Split. */
+.hero-grid{grid-template-columns:1.22fr 1fr}
+.hero-visual img{height:clamp(380px, 66vh, 660px)}
+@media (max-width:900px){
+  .hero-visual img{height:clamp(260px, 44vh, 400px)}
+}
+
+/* Estreitar a coluna para 1.22fr devolveu a headline a 4 linhas em 768 e
+   390. Duas linhas em todas as larguras vale mais que o aviso de
+   dominancia, entao a proporcao volta a 1.45fr (59/41) e a foto fica
+   alta. A tensao entre a headline longa do brief e a regra de elemento
+   dominante fica registrada no relatorio, nao mascarada. */
+.hero-grid{grid-template-columns:1.45fr 1fr}
+
+/* A regra .hero-grid{1.45fr 1fr} acima esta FORA de media query e vinha
+   depois do bloco de 900px, entao vencia por ordem e o hero nunca
+   empilhava: a coluna de texto ficava com 170px a 375 e a headline
+   quebrava em 4 linhas. O empilhamento precisa vir por ultimo. */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:minmax(0,1fr); gap:var(--space-8)}
+  .hero-copy,.hero-visual{grid-column:1; grid-row:auto}
+  #hero-title,.hero-title{font-size:clamp(1.75rem, 6.4vw, 2.6rem)}
+}
+
+/* A 375px a coluna tem 320px e 28px nao cabem em duas linhas
+   (27 caracteres pedem ~390px). Um degrau a menos so nessa faixa. */
+@media (max-width:480px){
+  #hero-title,.hero-title{font-size:clamp(1.35rem, 5.9vw, 1.6rem); line-height:1.1}
+}

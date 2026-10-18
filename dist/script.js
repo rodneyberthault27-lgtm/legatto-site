@@ -175,3 +175,62 @@ document.querySelectorAll('[data-guide]').forEach(button => {
     if (e.key === 'Escape') sincronizar();
   });
 })();
+
+/* === CAMADA DE MENSURACAO (brief 10) ===
+   INERTE POR PADRAO. Nao envia nada, nao usa cookie, nao usa storage,
+   nao carrega script de terceiro. Apenas acumula os eventos em memoria.
+
+   Para ativar, e preciso DUAS acoes explicitas, feitas por quem tem
+   autoridade para decidir sobre LGPD:
+     window.LEGATTO_CONSENTIMENTO = true;
+     window.LEGATTO_SINK = evento => { ... };   // onde enviar
+
+   Sem as duas, os eventos ficam so em window.legattoEventos, acessiveis
+   pelo console para conferencia, e somem ao fechar a aba. */
+(function () {
+  var MAX = 200;
+  window.legattoEventos = [];
+
+  function registrar(nome, dados) {
+    var ev = Object.assign({ evento: nome, em: Date.now() }, dados || {});
+    if (window.legattoEventos.length < MAX) window.legattoEventos.push(ev);
+    var consentiu = window.LEGATTO_CONSENTIMENTO === true;
+    var destino = typeof window.LEGATTO_SINK === 'function';
+    if (consentiu && destino) {
+      try { window.LEGATTO_SINK(ev); } catch (e) {}
+    }
+  }
+
+  // origem de campanha, se vier na URL. Fica so em memoria.
+  var p = new URLSearchParams(location.search);
+  var origem = {};
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function (k) {
+    if (p.get(k)) origem[k] = p.get(k);
+  });
+  if (Object.keys(origem).length) registrar('origem_campanha', origem);
+
+  // cliques em qualquer CTA marcado
+  document.addEventListener('click', function (e) {
+    var alvo = e.target.closest('[data-cta]');
+    if (!alvo) return;
+    registrar('clique_cta', {
+      cta: alvo.dataset.cta,
+      id: alvo.dataset.ctaId || alvo.dataset.service || null,
+      whatsapp: /wa\.me/.test(alvo.getAttribute('href') || '')
+    });
+  }, { passive: true });
+
+  // escolha de prioridade
+  document.querySelectorAll('[data-priority]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      registrar('prioridade_escolhida', { prioridade: b.dataset.priority });
+    }, { passive: true });
+  });
+
+  // abertura de guia
+  document.querySelectorAll('[data-guide]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      registrar('guia_aberto', { guia: b.dataset.guide });
+    }, { passive: true });
+  });
+})();
