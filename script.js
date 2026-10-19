@@ -43,19 +43,28 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
   document.querySelectorAll('.reveal').forEach(item => revealObserver.observe(item));
 }
 const progressBar = document.querySelector('.scroll-progress span');
-let scrollFrame = false;
-function updateProgress() {
-  const range = document.documentElement.scrollHeight - innerHeight;
-  progressBar.style.width = Math.min(100, Math.max(0, range > 0 ? scrollY / range * 100 : 0)) + '%';
-  scrollFrame = false;
+// Onde o navegador tem scroll-driven animation, o CSS move a barra sozinho,
+// fora da thread principal — nao registramos listener nenhum.
+const progressoNativo = window.CSS
+  && CSS.supports('animation-timeline: scroll()')
+  && !reducedMotion.matches;
+if (progressBar && !progressoNativo) {
+  let scrollFrame = false;
+  const updateProgress = () => {
+    const range = document.documentElement.scrollHeight - innerHeight;
+    const parte = range > 0 ? scrollY / range : 0;
+    // transform em vez de width: o compositor resolve sem forcar layout
+    progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, parte))})`;
+    scrollFrame = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (scrollFrame) return;
+    scrollFrame = true;
+    requestAnimationFrame(updateProgress);
+  }, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
 }
-window.addEventListener('scroll', () => {
-  if (scrollFrame) return;
-  scrollFrame = true;
-  requestAnimationFrame(updateProgress);
-}, { passive: true });
-window.addEventListener('resize', updateProgress);
-updateProgress();
 
 document.querySelectorAll('.accordion details').forEach(detail => {
   detail.addEventListener('toggle', () => {
