@@ -18,6 +18,16 @@ Para reverter uma publicação com falhas, reverta o commit correspondente e agu
 
 Os testes de navegador estão em `tests/seguro-auto.cjs`, `tests/service-pages.cjs` e `tests/game-privacy.cjs`; usam o Playwright e o Chrome disponíveis no ambiente local de desenvolvimento. Não ativam analytics nem enviam dados de clientes.
 
+## Fotografia e movimento — 19/10/2026
+
+`jornada.css` preserva as composições completas do banner e das seis fotos de serviço, com legendas fora da fotografia e grade responsiva 3/2/1 colunas. Não há zoom automático contínuo nem texto sobre pessoas.
+
+`jornada.js` usa GSAP 3.15.0, servido localmente em `assets/vendor/`, para uma entrada curta e um diagrama SVG com traço CSS ligando quatro áreas com destinos reais. Só a camada HTML do traço se transforma; o SVG não precisa ser repintado a cada quadro. Não há animação de layout, filtros, rolagem sequestrada ou loops. Sem GSAP/JavaScript, todo conteúdo continua visível. O movimento reduzido responde também a mudanças feitas durante a navegação. A barra de leitura usa fallback por transform nas páginas internas e ao mudar a preferência de movimento.
+
+Direção técnica: skills `gsap-web`, `svg-animation`, `accessible-animation` e `60fps-animation` de https://github.com/iart-ai/web-animation-skills (referência `b6dba3eb759726845a44163ff0bad70dd9e7fbb6`). Biblioteca oficial: https://www.npmjs.com/package/gsap/v/3.15.0, sujeita à licença https://gsap.com/standard-license (aviso de copyright preservado no arquivo distribuído).
+
+Verificação: `node tests/visual-motion.cjs`. Para inspecionar quadros determinísticos: `?t=0`, `?t=0.7`, `?t=2`; `?reduce=1` força a variante reduzida. O parâmetro é opcional e não afeta links de atendimento. Os demais serviços e a simulação mantêm suas verificações anteriores.
+
 ## Decisões de conteúdo
 
 - Experiência do fundador e posicionamento consultivo vêm do briefing do responsável.

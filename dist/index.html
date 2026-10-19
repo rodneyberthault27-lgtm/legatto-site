@@ -19,9 +19,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261018-brief8">
-  <link rel="stylesheet" href="instrumento.css?v=20261018-brief8">
-  <script src="script.js?v=20261018-brief8" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261019-jornada">
+  <link rel="stylesheet" href="instrumento.css?v=20261019-jornada">
+  <link rel="stylesheet" href="jornada.css?v=20261019-motion">
+  <script src="script.js?v=20261019-jornada" defer></script>
+  <script src="assets/vendor/gsap-3.15.0.min.js" defer></script>
+  <script src="jornada.js?v=20261019-motion" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -209,10 +212,35 @@
         </div>
         <figure class="hero-visual hero-entrance">
           <img src="assets/legatto-jornada.webp" width="1440" height="960" alt="Família caminhando junta por uma trilha de parque" fetchpriority="high">
-          <figcaption><p>Os planos continuam.<br>As histórias também.</p></figcaption>
+          <figcaption><p>Os planos continuam. As histórias também.</p></figcaption>
         </figure>
       </div>
       <div class="container hero-trust"><span>Atendimento consultivo</span><span>Escolhas explicadas com clareza</span><span>Acompanhamento ao longo do tempo</span></div>
+    </section>
+
+    <section class="protection-journey" aria-labelledby="journey-title">
+      <div class="container">
+        <div class="journey-heading"><p class="eyebrow">UMA VISÃO CONECTADA</p><h2 id="journey-title">Sua vida não acontece em partes.<br>Sua proteção também não precisa.</h2><p>Família, saúde, conquistas e trabalho fazem parte da mesma história. A Legatto ajuda a olhar para esse conjunto.</p></div>
+        <div class="journey-canvas">
+          <div class="journey-drawing" aria-hidden="true">
+          <div class="journey-trace"></div>
+          <svg class="journey-line" viewBox="0 0 1000 80" fill="none" focusable="false">
+            <path class="journey-track" d="M125 40H875"/>
+            <g class="journey-dot"><circle cx="125" cy="40" r="14"/><path d="m119 40 4 4 8-8"/></g>
+            <g class="journey-dot"><circle cx="375" cy="40" r="14"/><path d="m369 40 4 4 8-8"/></g>
+            <g class="journey-dot"><circle cx="625" cy="40" r="14"/><path d="m619 40 4 4 8-8"/></g>
+            <g class="journey-dot"><circle cx="875" cy="40" r="14"/><path d="m869 40 4 4 8-8"/></g>
+          </svg>
+          </div>
+          <div class="journey-areas">
+            <a href="seguro-vida.html"><span class="journey-index">01</span><h3>Família</h3><p>Renda e planos de quem depende de você.</p><span class="journey-link">Conhecer proteção de vida <span aria-hidden="true">↗</span></span></a>
+            <a href="plano-saude.html"><span class="journey-index">02</span><h3>Saúde</h3><p>Rede e cuidado que fazem sentido na sua rotina.</p><span class="journey-link">Explorar planos de saúde <span aria-hidden="true">↗</span></span></a>
+            <a href="seguro-patrimonio.html"><span class="journey-index">03</span><h3>Patrimônio</h3><p>O que você construiu e deseja preservar.</p><span class="journey-link">Entender proteção patrimonial <span aria-hidden="true">↗</span></span></a>
+            <a href="seguro-empresarial.html"><span class="journey-index">04</span><h3>Empresa</h3><p>Continuidade para o negócio e para sua equipe.</p><span class="journey-link">Ver proteção empresarial <span aria-hidden="true">↗</span></span></a>
+          </div>
+        </div>
+        <p class="journey-footnote">Cada área tem suas condições e coberturas. A análise parte do seu momento — não de um pacote pronto.</p>
+      </div>
     </section>
 
     <section class="solutions section-pad" id="solucoes" aria-labelledby="solutions-title">

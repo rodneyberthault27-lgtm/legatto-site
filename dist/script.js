@@ -31,31 +31,43 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => {
 });
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.06 });
-  document.documentElement.classList.add('motion-ready');
-  document.querySelectorAll('.reveal').forEach(item => revealObserver.observe(item));
-}
+
+// Entradas e conexao da home ficam isoladas em jornada.js. Sem a biblioteca,
+// o conteudo continua visivel; nao escondemos cada secao por scroll.
 const progressBar = document.querySelector('.scroll-progress span');
-let scrollFrame = false;
-function updateProgress() {
-  const range = document.documentElement.scrollHeight - innerHeight;
-  progressBar.style.width = Math.min(100, Math.max(0, range > 0 ? scrollY / range * 100 : 0)) + '%';
-  scrollFrame = false;
+if (progressBar) {
+  let scrollFrame = false;
+  let progressoNativo = false;
+  // As paginas internas nao carregam instrumento.css. A largura-base
+  // tambem precisa existir quando so o fallback JS esta disponivel.
+  progressBar.style.width = '100%';
+  progressBar.style.transformOrigin = 'left center';
+  const updateProgress = () => {
+    scrollFrame = false;
+    if (progressoNativo) return;
+    const range = document.documentElement.scrollHeight - innerHeight;
+    const parte = range > 0 ? scrollY / range : 0;
+    progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, parte))})`;
+  };
+  const scheduleProgress = () => {
+    if (progressoNativo || scrollFrame) return;
+    scrollFrame = true;
+    requestAnimationFrame(updateProgress);
+  };
+  const configureProgress = () => {
+    const style = getComputedStyle(progressBar);
+    progressoNativo = !reducedMotion.matches
+      && style.animationName !== 'none'
+      && !!style.animationTimeline?.includes('scroll(');
+    if (progressoNativo) progressBar.style.removeProperty('transform');
+    else updateProgress();
+  };
+  window.addEventListener('scroll', scheduleProgress, { passive: true });
+  window.addEventListener('resize', scheduleProgress);
+  window.addEventListener('load', scheduleProgress);
+  reducedMotion.addEventListener('change', configureProgress);
+  configureProgress();
 }
-window.addEventListener('scroll', () => {
-  if (scrollFrame) return;
-  scrollFrame = true;
-  requestAnimationFrame(updateProgress);
-}, { passive: true });
-window.addEventListener('resize', updateProgress);
-updateProgress();
 
 document.querySelectorAll('.accordion details').forEach(detail => {
   detail.addEventListener('toggle', () => {

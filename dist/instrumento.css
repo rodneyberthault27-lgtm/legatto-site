@@ -607,3 +607,60 @@ strong{font-weight:600}
 @media (max-width:480px){
   #hero-title,.hero-title{font-size:clamp(1.35rem, 5.9vw, 1.6rem); line-height:1.1}
 }
+
+/* =========================================================
+   Passe de movimento discreto — 2026-10-19
+   Assinatura: a respiracao da fotografia. E a unica peca que
+   se move sozinha na pagina; o resto e suporte.
+   Stack: CSS puro + animation-timeline nativo. Zero biblioteca.
+   ========================================================= */
+
+/* --- Camada continua: a fotografia respira -------------- */
+/* 26s por ciclo: imperceptivel por segundo, claramente viva
+   ao longo da leitura. scale + translate em transform, que o
+   compositor resolve sem repintar. .hero-visual ja tem
+   overflow:hidden, entao nada vaza. */
+@keyframes inst-respira {
+  from { transform: scale(1)     translate3d(0, 0,     0); }
+  to   { transform: scale(1.065) translate3d(0, -1.2%, 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-visual img {
+    animation: inst-respira 26s ease-in-out infinite alternate;
+  }
+}
+
+/* --- Barra de progresso fora da thread principal --------- */
+/* Antes: o JS escrevia `width` a cada quadro de scroll, o que
+   forca layout toda vez. Agora e transform; e onde houver
+   scroll-driven animation nativa, o navegador resolve sozinho
+   sem JS nenhum (o script.js detecta e nao registra o listener). */
+.scroll-progress span {
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+@keyframes inst-progresso {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress span {
+      animation: inst-progresso linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+/* --- Movimento parado de verdade sob reduced motion ------ */
+/* O bloco generico de reduced-motion do styles.css zera
+   duracoes, o que para uma animacao infinita significa
+   "pula direto para o fim" e nao "nao acontece". Aqui a
+   respiracao e removida, e a barra volta para o JS. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual img { animation: none !important; }
+}
