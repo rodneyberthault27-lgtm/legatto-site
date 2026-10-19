@@ -31,17 +31,13 @@ document.querySelectorAll('[data-whatsapp]').forEach(link => {
 });
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.06 });
-  document.documentElement.classList.add('motion-ready');
-  document.querySelectorAll('.reveal').forEach(item => revealObserver.observe(item));
-}
+
+// A pagina tem um momento de entrada so: a sequencia do hero, em CSS puro.
+// As 29 entradas por scroll sairam — entrada em cada secao e o padrao
+// generico que faz a pagina parecer gerada. O observer e a classe
+// .motion-ready que o acompanhava foram removidos: as 33 regras de CSS
+// que dependiam dessa classe simplesmente nao casam mais, e o conteudo
+// fica visivel desde o primeiro quadro.
 const progressBar = document.querySelector('.scroll-progress span');
 // Onde o navegador tem scroll-driven animation, o CSS move a barra sozinho,
 // fora da thread principal — nao registramos listener nenhum.
