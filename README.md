@@ -28,6 +28,16 @@ Direção técnica: skills `gsap-web`, `svg-animation`, `accessible-animation` e
 
 Verificação: `node tests/visual-motion.cjs`. Para inspecionar quadros determinísticos: `?t=0`, `?t=0.7`, `?t=2`; `?reduce=1` força a variante reduzida. O parâmetro é opcional e não afeta links de atendimento. Os demais serviços e a simulação mantêm suas verificações anteriores.
 
+## Acabamento do guia de movimento — 20/10/2026
+
+`acabamento.css` e `acabamento.js` aplicam o guia aprovado sem trocar a tecnologia ou instalar bibliotecas. A abertura usa tipografia maior, painéis geométricos e um recorte WebP transparente da família, com todos os integrantes dentro do enquadramento. Texto e legenda ficam fora da imagem.
+
+Os títulos das seções entram uma única vez com deslocamento de 12px, sem ocultar permanentemente conteúdo. Os cards ganham uma luz discreta acompanhando o mouse e contorno equivalente ao focar links pelo teclado. No toque e com movimento reduzido, não há rastreamento do cursor.
+
+No rodapé, partículas em Canvas 2D formam LEGATTO em 1,5s e terminam em texto HTML nítido. O efeito pausa fora da tela ou com a aba oculta, limita partículas/DPR e não mantém loop após concluir. Não foram adicionados React, Three.js, Motion ou Lenis. O GSAP local existente cuida das entradas; sem ele, o conteúdo segue visível.
+
+Teste: `node tests/guide-effects.cjs`; `TEST_DIST=1` valida a saída de produção e `SITE_TEST_URL` aceita o endereço publicado. O teste cobre pixels realmente desenhados, pausa/conclusão das partículas, foco, toque, teclado, movimento reduzido e enquadramento responsivo. Detalhes do ativo e do prompt: [docs/movement-guide.md](docs/movement-guide.md).
+
 ## Decisões de conteúdo
 
 - Experiência do fundador e posicionamento consultivo vêm do briefing do responsável.
