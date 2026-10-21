@@ -17,7 +17,11 @@
       const hero = gsap.timeline({ paused: frozen, defaults: { ease: 'power3.out', duration: reduced ? .15 : .65 } });
       const items = document.querySelectorAll('.hero-copy>h1,.hero-description,.hero-actions,.hero-note');
       hero.fromTo(items, { opacity: reduced ? 1 : 0, y: reduced ? 0 : 14 }, { opacity: 1, y: 0, stagger: reduced ? 0 : .08, clearProps: 'transform,opacity' });
-      hero.fromTo('.hero-visual', { opacity: reduced ? 1 : 0 }, { opacity: 1, clearProps: 'opacity' }, reduced ? 0 : .2);
+      const heroVisual = document.querySelector('.hero-visual');
+      // The cutout owns its entrance; a parent fade would hide that motion.
+      if (heroVisual && !heroVisual.querySelector('.hero-family')) {
+        hero.fromTo(heroVisual, { opacity: reduced ? 1 : 0 }, { opacity: 1, clearProps: 'opacity' }, reduced ? 0 : .2);
+      }
 
       const canvas = document.querySelector('.journey-canvas');
       const journey = gsap.timeline({

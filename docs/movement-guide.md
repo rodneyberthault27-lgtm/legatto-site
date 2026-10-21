@@ -6,6 +6,8 @@ Referência fornecida pelo responsável: `kit-sites-com-movimento (2).zip`. Os n
 
 - Identidade atual preservada: fundo quase preto, azul elétrico e tipografia Jost.
 - Abertura: título maior, plano geométrico azul e moldura discreta atrás da família recortada. Sem texto sobre pessoas ou ampliação contínua.
+- Movimento próprio da família: entrada horizontal de 28px com escala de 0,97 até 1 durante 1,25s, disparada quando pelo menos 20% do palco entram na tela. O banner pai não aplica fade sobre ela. Um invólucro separado cria profundidade ao cursor e à rolagem; deslocamento limitado a ±6px horizontal, ±4px vertical do cursor e ±6px de rolagem. Nenhuma opacidade é reduzida na foto. Observador e eventos de entrada substituem loops contínuos; os listeners de scroll/resize só permanecem ativos com o palco visível e movimento permitido.
+- A entrada espera o carregamento e decode da foto, para não terminar antes de os pixels chegarem numa conexão lenta. O observador é renovado em `pageshow`, incluindo restauração por cache de navegação, e a exibição da aba reavalia a entrada pendente.
 - Foto com proporção original 3:2, num palco quadrado. Apenas área transparente pode ultrapassar o palco; o teste projeta os pixels opacos para verificar que cabeça, corpo e pés cabem.
 - Entradas curtas de 500ms, uma vez, com texto legível durante o efeito. Sem scroll hijacking ou mudança de layout por quadro.
 - Spotlight: gradiente fixo movido por `transform`, eventos agrupados por `requestAnimationFrame`, sem processamento contínuo. Foco por teclado visível; toque e movimento reduzido sem rastreamento.
@@ -26,6 +28,7 @@ Adaptação após inspeção: o recorte foi usado sobre planos gráficos própri
 ## Verificação
 
 - `node tests/guide-effects.cjs`: spotlight, foco, redução de movimento, pixels de partículas, pausa fora da tela, término sem loop, entrada única, enquadramento em 1440/768/390/320px, toque, menu e FAQ pelo teclado, HTML sem JavaScript.
+- `node tests/family-motion.cjs`: entrada ao chegar à foto no celular, efeito ao cursor após a entrada, profundidade com rolagem de toque, mudança de preferência durante a animação, visibilidade real incluindo ancestrais e limites da composição com scroll/cursor combinados nas quatro larguras. O teste reproduziu a foto imóvel e o conflito do fade pai antes das correções.
 - `node tests/visual-motion.cjs`: seis larguras de 320 a 1920px, composição das sete fotos, legenda externa, diagrama conectado, fallback e perfil de animação.
 - `node tests/service-pages.cjs`, `node tests/seguro-auto.cjs`, `node tests/game-privacy.cjs`: funcionalidades e privacidade existentes.
 - `node tests/build-hosting.cjs`: metadados, sitemap e caminhos de publicação.

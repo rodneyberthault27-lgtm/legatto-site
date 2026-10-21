@@ -65,6 +65,92 @@
     window.addEventListener('pagehide', finishReveals);
   }
 
+  // The family enters when the photo is visible, not while below the fold.
+  const familyStage = document.querySelector('.hero-stage');
+  if (familyStage && familyStage.querySelector('.hero-family') && window.gsap && 'IntersectionObserver' in window) {
+    const familyImage = familyStage.querySelector('img');
+    const familyLayer = familyStage.querySelector('.hero-family');
+    let familyTween = null, familySeen = false, familyReady = false;
+    let familyVisible = false, scrollListening = false;
+    let familyFrame = 0, pointerX = 0, pointerY = 0;
+    const writeFamilyOffset = () => {
+      familyFrame = 0;
+      if (!familyVisible || reduced.matches || document.hidden) return;
+      const box = familyStage.getBoundingClientRect();
+      const scrollY = Math.max(-6, Math.min(6, (innerHeight / 2 - box.top - box.height / 2) / innerHeight * 14));
+      familyLayer.style.transform = 'translate3d(' + pointerX + 'px,' + (pointerY + scrollY) + 'px,0)';
+    };
+    const requestFamilyFrame = () => { if (!familyFrame) familyFrame = requestAnimationFrame(writeFamilyOffset); };
+    const resetFamilyOffset = () => {
+      cancelAnimationFrame(familyFrame); familyFrame = 0;
+      pointerX = 0; pointerY = 0;
+      familyLayer.style.transform = '';
+    };
+    const syncFamilyScroll = () => {
+      const active = familyVisible && !reduced.matches && !document.hidden;
+      if (active && !scrollListening) {
+        window.addEventListener('scroll', requestFamilyFrame, { passive: true });
+        window.addEventListener('resize', requestFamilyFrame, { passive: true });
+        scrollListening = true; requestFamilyFrame();
+      } else if (!active) {
+        window.removeEventListener('scroll', requestFamilyFrame);
+        window.removeEventListener('resize', requestFamilyFrame);
+        scrollListening = false; resetFamilyOffset();
+      }
+    };
+    familyStage.addEventListener('pointermove', event => {
+      if (!familyVisible || reduced.matches || !finePointer.matches || event.pointerType === 'touch') return;
+      const box = familyStage.getBoundingClientRect();
+      pointerX = Math.max(-6, Math.min(6, (event.clientX - box.left) / box.width * 12 - 6));
+      pointerY = Math.max(-4, Math.min(4, (event.clientY - box.top) / box.height * 8 - 4));
+      requestFamilyFrame();
+    }, { passive: true });
+    familyStage.addEventListener('pointerleave', resetFamilyOffset);
+    const finishFamily = () => {
+      const tween = familyTween;
+      familyTween = null;
+      if (tween) { tween.progress(1); tween.kill(); }
+    };
+    const enterFamily = () => {
+      if (!familyReady || !familyVisible || familySeen || reduced.matches || document.hidden) return;
+      familySeen = true;
+      familyImage.style.willChange = 'transform';
+      familyTween = gsap.fromTo(familyImage, { x: -28, scale: .97, transformOrigin: '75% 50%' }, {
+        x: 0, scale: 1, duration: 1.25, ease: 'power2.out', clearProps: 'transform,transformOrigin,willChange',
+        onComplete: () => { familyTween = null; }
+      });
+    };
+    const familyObserver = new IntersectionObserver(entries => {
+      familyVisible = entries[0].isIntersecting && entries[0].intersectionRatio >= .2;
+      syncFamilyScroll();
+      if (familyVisible) enterFamily();
+      else finishFamily();
+    }, { threshold: .2 });
+    familyObserver.observe(familyStage);
+    const photoLoaded = () => {
+      if (!familyImage.complete || !familyImage.naturalWidth) return;
+      const show = () => { familyReady = true; enterFamily(); };
+      if (familyImage.decode) familyImage.decode().then(show).catch(() => {});
+      else show();
+    };
+    if (familyImage.complete) photoLoaded();
+    else familyImage.addEventListener('load', photoLoaded, { once: true });
+    reduced.addEventListener('change', () => {
+      if (reduced.matches) finishFamily();
+      syncFamilyScroll(); enterFamily();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) finishFamily();
+      syncFamilyScroll();
+      if (!document.hidden) enterFamily();
+    });
+    window.addEventListener('pagehide', () => { finishFamily(); familyVisible = false; syncFamilyScroll(); });
+    window.addEventListener('pageshow', () => {
+      familyObserver.unobserve(familyStage);
+      familyObserver.observe(familyStage);
+    });
+  }
+
   // Sample only near the footer. No graphics engine or permanent ticker.
   const word = document.querySelector('.particle-word');
   if (!word) return;

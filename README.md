@@ -36,6 +36,8 @@ Os títulos das seções entram uma única vez com deslocamento de 12px, sem ocu
 
 No rodapé, partículas em Canvas 2D formam LEGATTO em 1,5s e terminam em texto HTML nítido. O efeito pausa fora da tela ou com a aba oculta, limita partículas/DPR e não mantém loop após concluir. Não foram adicionados React, Three.js, Motion ou Lenis. O GSAP local existente cuida das entradas; sem ele, o conteúdo segue visível.
 
+A família tem entrada própria de 1,25s quando pelo menos 20% do palco ficam visíveis. Um invólucro separado responde ao cursor e à rolagem, inclusive em telas de toque, sem disputar o transform da entrada. A foto não perde opacidade e o fade antigo do banner não a oculta. O movimento é limitado ao espaço de segurança da composição, para na redução de movimento e não mantém renderização contínua. Regressão específica: `node tests/family-motion.cjs`.
+
 Teste: `node tests/guide-effects.cjs`; `TEST_DIST=1` valida a saída de produção e `SITE_TEST_URL` aceita o endereço publicado. O teste cobre pixels realmente desenhados, pausa/conclusão das partículas, foco, toque, teclado, movimento reduzido e enquadramento responsivo. Detalhes do ativo e do prompt: [docs/movement-guide.md](docs/movement-guide.md).
 
 ## Decisões de conteúdo
