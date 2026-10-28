@@ -24,6 +24,12 @@ try {
   assert.ok(errorPage.includes('href="/legatto-site/index.html#solucoes"'));
   assert.ok(errorPage.includes('src="/legatto-site/assets/legatto-logo.webp"'));
   assert.ok(fs.existsSync(path.join(root, 'dist/.nojekyll')));
+  // Every local home stylesheet/script must be in the actual release package.
+  for (const [, resource] of read('index.html').matchAll(/(?:href|src)="([^"?#]+\.(?:css|js))(?:[?#][^"]*)?"/g)) {
+    if (/^https?:/.test(resource)) continue;
+    assert.ok(fs.existsSync(path.join(root, 'dist', resource)), 'Missing release asset: ' + resource);
+    assert.equal(read(resource), fs.readFileSync(path.join(root, resource), 'utf8'), 'Stale release asset: ' + resource);
+  }
   build('');
   assert.ok(read('seguro-auto.html').includes('href="https://legatto-consultoria.rodead.chatgpt.site/seguro-auto.html"'), 'Default Sites build must remain supported');
   assert.ok(read('404.html').includes('href="/styles.css?'), 'Root-domain 404 must retain root paths');
