@@ -80,20 +80,57 @@ document.querySelectorAll('.accordion details').forEach(detail => {
 document.querySelector('#year').textContent = new Date().getFullYear();
 
 const priorityCopy = {
-  auto: { text: 'Vamos conhecer seu veículo, seu perfil de uso e a proteção atual para comparar coberturas, franquias e assistências.', message: 'Olá, quero cotar ou renovar meu Seguro Auto com a Legatto.' },
-  familia: { text: 'Vamos entender quem depende da sua renda, quais compromissos precisam continuar e o que você já tem protegido.', message: 'Olá, quero conversar sobre proteção financeira para minha família e minha renda.' },
-  patrimonio: { text: 'Vamos conversar sobre seu patrimônio, seus objetivos de continuidade e as mudanças que podem pedir uma revisão.', message: 'Olá, quero conversar sobre proteção do meu patrimônio e planejamento sucessório.' },
-  saude: { text: 'Vamos avaliar sua região, a rede que faz parte da sua rotina e as condições de um plano que atenda às suas necessidades.', message: 'Olá, quero conversar sobre plano ou seguro de saúde para minha família.' },
-  empresa: { text: 'Vamos conhecer a operação, a equipe e as responsabilidades da empresa para organizar as prioridades de proteção e benefícios.', message: 'Olá, quero conversar sobre proteção, saúde e benefícios para minha empresa.' }
+  auto: { text: 'Vamos conhecer seu veículo, seu perfil de uso e a proteção atual para comparar coberturas, franquias e assistências.', message: 'Olá, quero cotar ou renovar meu Seguro Auto com a Legatto.', item: 'cotar ou renovar meu Seguro Auto' },
+  familia: { text: 'Vamos entender quem depende da sua renda, quais compromissos precisam continuar e o que você já tem protegido.', message: 'Olá, quero conversar sobre proteção financeira para minha família e minha renda.', item: 'proteção financeira para minha família e minha renda' },
+  patrimonio: { text: 'Vamos conversar sobre seu patrimônio, seus objetivos de continuidade e as mudanças que podem pedir uma revisão.', message: 'Olá, quero conversar sobre proteção do meu patrimônio e planejamento sucessório.', item: 'proteção do meu patrimônio e planejamento sucessório' },
+  saude: { text: 'Vamos avaliar sua região, a rede que faz parte da sua rotina e as condições de um plano que atenda às suas necessidades.', message: 'Olá, quero conversar sobre plano ou seguro de saúde para minha família.', item: 'plano ou seguro de saúde' },
+  empresa: { text: 'Vamos conhecer a operação, a equipe e as responsabilidades da empresa para organizar as prioridades de proteção e benefícios.', message: 'Olá, quero conversar sobre proteção, saúde e benefícios para minha empresa.', item: 'proteção, saúde e benefícios para minha empresa' }
 };
+// Choices add up: each pressed priority becomes a line of the WhatsApp draft.
+const priorityDefault = document.querySelector('#priority-result')?.textContent || '';
+const priorityMessage = keys => keys.length === 1
+  ? priorityCopy[keys[0]].message
+  : 'Olá, quero conversar com a Legatto sobre:\n' + keys.map(key => '• ' + priorityCopy[key].item).join('\n');
+function renderPriorities(added) {
+  const pressed = [...document.querySelectorAll('[data-priority][aria-pressed="true"]')];
+  const keys = pressed.map(item => item.dataset.priority);
+  const result = document.querySelector('#priority-result');
+  const link = document.querySelector('#priority-link');
+  const draft = document.querySelector('#priority-draft');
+  if (!keys.length) {
+    result.textContent = priorityDefault;
+    link.href = 'https://wa.me/5511971371823';
+    link.classList.remove('active');
+    if (draft) draft.classList.remove('active');
+    return;
+  }
+  const names = pressed.map(item => item.textContent.trim().toLowerCase());
+  result.textContent = keys.length === 1 ? priorityCopy[keys[0]].text
+    : 'Você marcou ' + keys.length + ' prioridades: ' + names.join('; ') + '. O consultor organiza a conversa a partir delas.';
+  const message = priorityMessage(keys);
+  link.href = 'https://wa.me/5511971371823?text=' + encodeURIComponent(message);
+  link.textContent = keys.length === 1 ? 'Conversar sobre minha prioridade' : 'Conversar sobre minhas prioridades';
+  link.classList.add('active');
+  if (!draft) return;
+  draft.querySelector('.draft-text').textContent = message;
+  const thumbs = draft.querySelector('.draft-thumbs');
+  const kept = new Map([...thumbs.children].map(thumb => [thumb.dataset.piece, thumb]));
+  thumbs.replaceChildren(...pressed.map(item => {
+    const key = item.dataset.priority;
+    if (kept.has(key)) return kept.get(key);
+    const thumb = item.querySelector('img').cloneNode();
+    thumb.dataset.piece = key;
+    thumb.loading = 'eager';
+    if (key === added) thumb.classList.add('is-new');
+    return thumb;
+  }));
+  draft.classList.add('active');
+}
 document.querySelectorAll('[data-priority]').forEach(button => {
   button.addEventListener('click', () => {
-    const choice = priorityCopy[button.dataset.priority];
-    document.querySelectorAll('[data-priority]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    document.querySelector('#priority-result').textContent = choice.text;
-    const link = document.querySelector('#priority-link');
-    link.href = 'https://wa.me/5511971371823?text=' + encodeURIComponent(choice.message);
-    link.classList.add('active');
+    const on = button.getAttribute('aria-pressed') !== 'true';
+    button.setAttribute('aria-pressed', String(on));
+    renderPriorities(on ? button.dataset.priority : null);
   });
 });
 
@@ -127,18 +164,22 @@ document.querySelectorAll('[data-guide]').forEach(button => {
   function aplicarPrioridade(valor, comFoco) {
     var botao = document.querySelector('[data-priority="' + valor + '"]');
     if (!botao) return false;
-    botao.click();
+    if (botao.getAttribute('aria-pressed') !== 'true') botao.click();
     if (comFoco) botao.focus({ preventScroll: true });
     return true;
   }
 
-  // guarda a escolha e reflete na URL
+  // guarda as escolhas (separadas por virgula) e reflete na URL
   document.querySelectorAll('[data-priority]').forEach(function (botao) {
     botao.addEventListener('click', function () {
-      var valor = botao.dataset.priority;
-      try { sessionStorage.setItem(CHAVE, valor); } catch (e) {}
+      var valores = [].map.call(document.querySelectorAll('[data-priority][aria-pressed="true"]'), function (b) { return b.dataset.priority; });
       var url = new URL(location.href);
-      url.searchParams.set('prioridade', valor);
+      try {
+        if (valores.length) sessionStorage.setItem(CHAVE, valores.join(','));
+        else sessionStorage.removeItem(CHAVE);
+      } catch (e) {}
+      if (valores.length) url.searchParams.set('prioridade', valores.join(','));
+      else url.searchParams.delete('prioridade');
       history.replaceState(null, '', url);
     });
   });
@@ -148,7 +189,7 @@ document.querySelectorAll('[data-guide]').forEach(button => {
   var guardado = null;
   try { guardado = sessionStorage.getItem(CHAVE); } catch (e) {}
   var restaurar = daUrl || guardado;
-  if (restaurar) aplicarPrioridade(restaurar, false);
+  if (restaurar) restaurar.split(',').forEach(function (valor) { aplicarPrioridade(valor, false); });
 
   /* O deep-link dos guias foi removido de proposito: abrir o dialogo a
      partir da URL o reabria a cada carregamento e deixava o evento close

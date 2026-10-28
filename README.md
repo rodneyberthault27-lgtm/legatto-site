@@ -61,3 +61,14 @@ Arquivos públicos de cabeçalhos oficiais, consultados em 13/10/2026:
 - Zurich Santander: https://www.zurich-santander.com.br/
 
 Bradesco Saúde, Unimed Nacional e BB Seguros permanecem textuais: não foi obtido arquivo inequívoco nas consultas. Não substituir seus logos por marcas de grupos diferentes.
+
+## Montagem — 28/10/2026
+
+Aplicação da skill scroll-craft. Briefing, curva de sentimento e pico em `scrollcraft/builds/legatto-home/BRIEF.md`; registro em `scrollcraft/FINGERPRINTS.md`.
+
+- **Hero em planos:** a palavra "história" (`.hero-word`, decorativa, `aria-hidden`) fica entre o painel e a família. Ao rolar, o painel desce e a palavra sobe em ritmos diferentes; a família mantém o movimento já testado.
+- **O pico, "a vida se monta":** dentro de `.protection-journey`, quatro fotos de contexto começam soltas e inclinadas e se encaixam num quadro só enquanto a seção fica parada na tela (`position: sticky`, 260vh no desktop, 220vh no celular). A segunda linha do título acende no encaixe. As fotos mantêm a proporção 3:2 sem corte. Só `transform` e `opacity` via variáveis CSS, um quadro por `requestAnimationFrame`, nada roda fora da tela.
+- **Monte sua conversa:** em "O que pede atenção hoje?" as prioridades agora se somam. Cada escolha vira miniatura e linha de um rascunho visível, e o link do WhatsApp abre exatamente esse texto. Com uma escolha só, a mensagem é a mesma de antes. URL e `sessionStorage` guardam a lista separada por vírgula.
+- **Sem movimento:** com movimento reduzido, sem JavaScript ou quando o conteúdo não cabe na altura da tela (ex.: 320×568), o quadro aparece montado e a seção tem altura normal.
+
+Arquivos: `montagem.css`, `montagem.js` (incluídos no build). Verificação: todos os testes existentes; `tests/pages-browser.cjs` pede o build com `SITE_URL` do GitHub Pages.
