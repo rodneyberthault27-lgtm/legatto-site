@@ -22,9 +22,10 @@
     if (!sticky) return false;
     const was = assembly.classList.contains('is-live');
     assembly.classList.remove('is-live');
-    const need = sticky.scrollHeight;
+    const need = sticky.querySelector('.assembly-grid').getBoundingClientRect().height + 64;
     if (was) assembly.classList.add('is-live');
-    return need + 40 <= innerHeight;
+    const chrome = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-chrome')) || 92;
+    return need + chrome <= innerHeight;
   }
 
   function write() {
@@ -34,7 +35,8 @@
     }
     if (assembly && assembly.classList.contains('is-live') && visible.has(assembly)) {
       const box = assembly.getBoundingClientRect();
-      const p = clamp(-box.top / Math.max(1, box.height - innerHeight));
+      const offset = parseFloat(getComputedStyle(sticky).top) || 0;
+      const p = clamp((offset - box.top) / Math.max(1, box.height - innerHeight + offset));
       // 0-.15 parado e solto (silêncio), .15-.72 encaixa, depois segura montado.
       assembly.style.setProperty('--e', ease(span(p, .15, .72)).toFixed(4));
       assembly.style.setProperty('--b', ease(span(p, .55, .8)).toFixed(4));
