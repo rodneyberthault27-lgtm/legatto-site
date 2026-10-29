@@ -8,12 +8,13 @@
   const path=new URLSearchParams(location.search).get('prioridade')||'';
   const initial=path.split(',').map(s=>s.trim()).filter(Boolean);
   if(helper&&initial.length) helper.textContent='Você chegou com interesse em '+initial.map(s=>s==='familia'?'família':s==='empresa'?'empresa':s).join(' e ')+'. Você pode escolher seu próximo passo.';
+  links.forEach(link=>{
+    link.addEventListener('click',()=>{
+      try{sessionStorage.setItem('legatto_perfil',link.dataset.heroProfile)}catch(e){}
+    });
+  });
   const choice=document.querySelector('#profile-contact');
   const select=document.querySelector('#legatto-perfil');
-  links.forEach(link=>link.addEventListener('click',()=>{
-    if(select)select.value=link.dataset.heroProfile;
-    refresh();
-  }));
   function refresh(){
     if(!choice||!select)return;
     const p=select.value;
@@ -25,5 +26,4 @@
   if(select){if(initial.includes('empresa')&&!initial.includes('familia'))select.value='empresa';select.addEventListener('change',refresh)}
   options?.addEventListener('change',refresh);
   refresh();
-  if(choice&&select&&options)document.querySelector('.diagnosis-strip')?.classList.add('is-ready');
 })();

@@ -43,7 +43,7 @@
 
 /* Só com o script ativo e movimento permitido a seção ganha altura para rolar. */
 .assembly.is-live{height:260vh}
-.assembly.is-live .assembly-sticky{position:sticky;top:var(--page-chrome,92px);min-height:calc(100svh - var(--page-chrome,92px));display:grid;align-items:center;padding-block:32px;overflow:clip}
+.assembly.is-live .assembly-sticky{position:sticky;top:0;min-height:100vh;min-height:100svh;display:grid;align-items:center;padding-block:96px 24px;overflow:clip}
 .assembly.is-live .assembly-piece{
   --k:calc(1 - var(--e,0));
   transform:
@@ -58,7 +58,7 @@
 .assembly-piece:nth-child(3){--dx:-.8;--dy:1;--r:3deg;transform-origin:100% 0}
 .assembly-piece:nth-child(4){--dx:1;--dy:.9;--r:-4deg;transform-origin:0 0}
 .assembly.is-live .assembly-piece figcaption{opacity:calc(1 - var(--e,0) * 1.4)}
-.assembly.is-live .assembly-line-b{opacity:calc(.7 + .3 * var(--b,0))}
+.assembly.is-live .assembly-line-b{opacity:calc(.22 + .78 * var(--b,0))}
 .assembly.is-live .assembly-note,.assembly.is-live .assembly-frame::after{opacity:var(--o,0)}
 /* Sem script, o quadro já aparece montado: só o contorno e a nota. */
 .assembly:not(.is-live) .assembly-piece figcaption{display:none}
@@ -67,7 +67,7 @@
 @media(max-width:900px){
   .assembly-grid{grid-template-columns:minmax(0,1fr);gap:8px}
   .assembly.is-live{height:220vh;--spread-x:9%;--spread-y:18%}
-  .assembly.is-live .assembly-sticky{padding-block:32px}
+  .assembly.is-live .assembly-sticky{padding-block:88px 16px}
   .assembly .journey-heading>p:last-child{font-size:15px;margin-top:14px}
   .assembly-frame{margin-block:32px 40px}
 }
