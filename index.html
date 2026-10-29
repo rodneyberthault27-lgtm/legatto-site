@@ -23,14 +23,10 @@
   <link rel="stylesheet" href="instrumento.css?v=20261019-jornada">
   <link rel="stylesheet" href="jornada.css?v=20261019-motion">
   <link rel="stylesheet" href="acabamento.css?v=20261020-type">
-  <link rel="stylesheet" href="montagem.css?v=20261028-montagem">
-  <link rel="stylesheet" href="conversao.css?v=20261028">
-  <script src="conversao.js?v=20261028" defer></script>
-  <script src="script.js?v=20261028-montagem" defer></script>
+  <script src="script.js?v=20261019-jornada" defer></script>
   <script src="assets/vendor/gsap-3.15.0.min.js" defer></script>
   <script src="jornada.js?v=20261020-family" defer></script>
   <script src="acabamento.js?v=20261020-family" defer></script>
-  <script src="montagem.js?v=20261028-montagem" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -210,10 +206,6 @@
         <div class="hero-copy">
           <h1 id="hero-title" class="hero-entrance">Você constrói uma história.<br>Nós ajudamos a <span class="keep-together">protegê-la.</span></h1>
           <p class="hero-description hero-entrance">Seguro de vida, saúde, automóvel e proteção empresarial com orientação personalizada para cada momento da sua vida.</p>
-<div class="hero-paths hero-entrance" aria-label="Escolha seu caminho">
-  <a class="hero-path" data-hero-profile="familia" data-cta="perfil-familia" href="#familia">Para mim e minha família <span aria-hidden="true">↗</span></a>
-  <a class="hero-path" data-hero-profile="empresa" data-cta="perfil-empresa" href="#empresa">Para minha empresa <span aria-hidden="true">↗</span></a>
-</div><p class="hero-context" id="hero-profile-status" aria-live="polite">Escolha o que importa para você. O consultor ajuda a encontrar as alternativas.</p>
           <div class="hero-actions hero-entrance">
             <a class="button button-gold" data-cta="hero-primario" data-whatsapp="Olá, gostaria de solicitar orientação sobre proteção para mim, minha família ou minha empresa." href="https://wa.me/5511971371823" target="_blank" rel="noopener">Solicitar orientação</a>
             <a class="hero-secondary" data-cta="hero-secundario" href="#solucoes">Conhecer soluções</a>
@@ -222,7 +214,6 @@
         </div>
         <figure class="hero-visual hero-entrance">
           <div class="hero-stage">
-            <span class="hero-word" aria-hidden="true">história</span>
             <div class="hero-family"><img src="assets/hero-familia-recorte.webp" width="1200" height="800" alt="Pai, filha e mãe caminhando de mãos dadas" fetchpriority="high"></div>
           </div>
           <figcaption><p>Os planos continuam. As histórias também.</p></figcaption>
@@ -231,26 +222,9 @@
       <div class="container hero-trust"><span>Atendimento consultivo</span><span>Escolhas explicadas com clareza</span><span>Acompanhamento ao longo do tempo</span></div>
     </section>
 
-<section class="trust-intro" aria-labelledby="trust-intro-title"><div class="container trust-intro-grid">
-<div><p class="eyebrow">QUEM CUIDA DA SUA HISTÓRIA</p><h2 id="trust-intro-title">Experiência para orientar. Proximidade para acompanhar.</h2><p>Com mais de duas décadas de trajetória no mercado segurador, Vagner Junior fundou a Legatto para ajudar pessoas e empresas a compreender coberturas, condições e alternativas. A decisão começa com uma conversa, não com um pacote pronto.</p><a href="#sobre">Conheça a trajetória do fundador</a></div>
-<img class="trust-photo" src="assets/vagner-junior-hero.webp" width="960" height="1080" loading="lazy" decoding="async" alt="Retrato de Vagner Junior, fundador da Legatto">
-</div></section>
     <section class="protection-journey" aria-labelledby="journey-title">
-      <div class="assembly" data-assembly>
-        <div class="assembly-sticky">
-          <div class="container assembly-grid">
-            <div class="journey-heading"><p class="eyebrow">UMA VISÃO CONECTADA</p><h2 id="journey-title"><span class="assembly-line-a">Sua vida não acontece em partes.</span><br><span class="assembly-line-b">Sua proteção também não precisa.</span></h2><p>Família, saúde, conquistas e trabalho fazem parte da mesma história. A Legatto ajuda a olhar para esse conjunto.</p></div>
-            <div class="assembly-frame" aria-hidden="true">
-              <figure class="assembly-piece" data-piece="familia"><img src="assets/legatto-familia-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><figcaption>Família</figcaption></figure>
-              <figure class="assembly-piece" data-piece="saude"><img src="assets/legatto-saude-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><figcaption>Saúde</figcaption></figure>
-              <figure class="assembly-piece" data-piece="patrimonio"><img src="assets/legatto-patrimonio-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><figcaption>Patrimônio</figcaption></figure>
-              <figure class="assembly-piece" data-piece="empresa"><img src="assets/legatto-empresa-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><figcaption>Empresa</figcaption></figure>
-              <p class="assembly-note">Uma história só.</p>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="container">
+        <div class="journey-heading"><p class="eyebrow">UMA VISÃO CONECTADA</p><h2 id="journey-title">Sua vida não acontece em partes.<br>Sua proteção também não precisa.</h2><p>Família, saúde, conquistas e trabalho fazem parte da mesma história. A Legatto ajuda a olhar para esse conjunto.</p></div>
         <div class="journey-canvas">
           <div class="journey-drawing" aria-hidden="true">
           <div class="journey-trace"></div>
@@ -337,8 +311,8 @@
 
     <section class="priorities section-pad" id="prioridades" aria-labelledby="priorities-title">
       <div class="container priorities-grid">
-        <div class="section-heading reveal"><h2 id="priorities-title">Comece pelo<br>que importa.</h2><p>Marque uma ou mais prioridades e veja a mensagem se montar. A escolha fica salva neste navegador; ao abrir o WhatsApp, você decide se quer enviar a mensagem.</p></div>
-        <div class="priorities-panel reveal"><p class="priority-question">O que pede atenção hoje?</p><div class="priority-options" role="group" aria-label="Marque uma ou mais prioridades"><button type="button" data-priority="auto" aria-pressed="false"><img src="assets/legatto-auto-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><span>Meu carro</span></button><button type="button" data-priority="familia" aria-pressed="false"><img src="assets/legatto-familia-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><span>Minha família e minha renda</span></button><button type="button" data-priority="patrimonio" aria-pressed="false"><img src="assets/legatto-patrimonio-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><span>Meu patrimônio e legado</span></button><button type="button" data-priority="saude" aria-pressed="false"><img src="assets/legatto-saude-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><span>Minha saúde e meu cuidado</span></button><button type="button" data-priority="empresa" aria-pressed="false"><img src="assets/legatto-empresa-600.webp" width="600" height="400" alt="" loading="lazy" decoding="async"><span>Minha empresa e minha equipe</span></button></div><div class="priority-feedback"><p class="priority-result" id="priority-result" aria-live="polite">Sua escolha ajuda a dar contexto ao primeiro contato.</p><figure class="priority-draft" id="priority-draft"><figcaption>Sua mensagem para a Legatto</figcaption><div class="draft-thumbs" aria-hidden="true"></div><p class="draft-text" id="priority-draft-text"></p></figure><a class="button button-gold priority-link" id="priority-link" href="https://wa.me/5511971371823" target="_blank" rel="noopener">Conversar sobre minha prioridade</a></div></div>
+        <div class="section-heading reveal"><h2 id="priorities-title">Comece pelo<br>que importa.</h2><p>Selecione uma prioridade e veja como podemos iniciar a conversa. A escolha fica salva neste navegador; ao abrir o WhatsApp, você decide se quer enviar a mensagem.</p></div>
+        <div class="priorities-panel reveal"><p class="priority-question">O que pede atenção hoje?</p><div class="priority-options" role="group" aria-label="Escolha uma prioridade"><button type="button" data-priority="auto" aria-pressed="false">Meu carro</button><button type="button" data-priority="familia" aria-pressed="false">Minha família e minha renda</button><button type="button" data-priority="patrimonio" aria-pressed="false">Meu patrimônio e legado</button><button type="button" data-priority="saude" aria-pressed="false">Minha saúde e meu cuidado</button><button type="button" data-priority="empresa" aria-pressed="false">Minha empresa e minha equipe</button></div><div class="priority-feedback"><p class="priority-result" id="priority-result" aria-live="polite">Sua escolha ajuda a dar contexto ao primeiro contato.</p><a class="button button-gold priority-link" id="priority-link" href="https://wa.me/5511971371823" target="_blank" rel="noopener">Conversar sobre minha prioridade</a></div></div>
       </div>
     </section>
 
@@ -381,7 +355,7 @@
       </div></div>
     </section>
 
-    <section class="final-cta section-pad" id="contato" aria-labelledby="contact-title"><div class="container"><div class="diagnosis-strip" aria-label="Prepare sua primeira conversa"><label for="legatto-perfil">Sua conversa começa por onde?</label><select id="legatto-perfil"><option value="familia">Minha família</option><option value="empresa">Minha empresa</option></select><label for="legatto-momento" style="margin-top:12px">Em que momento você está?</label><select id="legatto-momento"><option value="conhecer">Quero conhecer as opções</option><option value="revisar">Já tenho proteção e quero revisar</option><option value="contratar">Pretendo contratar em breve</option></select><p>Nenhum dado é enviado automaticamente. Você escolhe quando iniciar o atendimento.</p><a class="button button-gold" id="profile-contact" data-cta="diagnostico-contextual" href="https://wa.me/5511971371823" target="_blank" rel="noopener">Enviar meu contexto pelo WhatsApp</a></div></div><div class="container contact-grid"><div class="reveal"><h2 id="contact-title">Conte o que importa.<br><em>Vamos cuidar disso juntos.</em></h2><p>Ao abrir o WhatsApp, você conta sua necessidade. O consultor orienta quais informações serão necessárias e combina os próximos passos. Você decide quando enviar a mensagem.</p></div><div class="contact-action reveal"><a class="button button-gold" data-cta="cta-final" data-whatsapp="Olá, quero conversar com a Legatto sobre minhas prioridades de proteção." href="https://wa.me/5511971371823" target="_blank" rel="noopener">Falar com um consultor no WhatsApp</a><span>+55 11 97137-1823</span><a class="contact-schedule" data-whatsapp="Olá, quero combinar um horário para conversar com um consultor da Legatto." href="https://wa.me/5511971371823" target="_blank" rel="noopener">Prefiro combinar um horário</a></div></div></section>
+    <section class="final-cta section-pad" id="contato" aria-labelledby="contact-title"><div class="container contact-grid"><div class="reveal"><h2 id="contact-title">Conte o que importa.<br><em>Vamos cuidar disso juntos.</em></h2><p>Ao abrir o WhatsApp, você conta sua necessidade. O consultor orienta quais informações serão necessárias e combina os próximos passos. Você decide quando enviar a mensagem.</p></div><div class="contact-action reveal"><a class="button button-gold" data-cta="cta-final" data-whatsapp="Olá, quero conversar com a Legatto sobre minhas prioridades de proteção." href="https://wa.me/5511971371823" target="_blank" rel="noopener">Falar com um consultor no WhatsApp</a><span>+55 11 97137-1823</span><a class="contact-schedule" data-whatsapp="Olá, quero combinar um horário para conversar com um consultor da Legatto." href="https://wa.me/5511971371823" target="_blank" rel="noopener">Prefiro combinar um horário</a></div></div></section>
   </main>
   <footer>
     <div class="container particle-word" data-state="idle"><span class="particle-label" translate="no">LEGATTO</span><canvas class="particle-canvas" aria-hidden="true"></canvas></div>
