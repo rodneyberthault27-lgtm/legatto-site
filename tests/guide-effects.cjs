@@ -105,26 +105,17 @@ const server = http.createServer((req, res) => {
     assert.equal(await heading.getAttribute('data-reveal-state'), 'complete', 'Section entrance must not repeat');
     await sections.close();
     console.log('PASS: subtle section entrance remains readable, settles and runs once.');
-    const source = await sharp(path.join(root, 'assets/hero-familia-recorte.webp')).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-    const body = { left: source.info.width, top: source.info.height, right: 0, bottom: 0 };
-    for (let y = 0; y < source.info.height; y++) for (let x = 0; x < source.info.width; x++) {
-      if (source.data[(y * source.info.width + x) * 4 + 3] < 200) continue;
-      body.left = Math.min(body.left, x); body.top = Math.min(body.top, y);
-      body.right = Math.max(body.right, x); body.bottom = Math.max(body.bottom, y);
-    }
+    // The film hero (tests/hero-film.cjs covers its motion) keeps a complete static poster.
     for (const width of [1440, 768, 390, 320]) {
       const hero = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
       await hero.goto(base, { waitUntil: 'networkidle' });
-      assert.equal(await hero.locator('.hero-stage').count(), 1, 'Opening needs a composed, layered photo stage');
+      assert.equal(await hero.locator('.hero-film-stage').count(), 1, 'Opening needs the composed film stage');
       assert.ok(await hero.locator('#hero-title').evaluate(el => parseFloat(getComputedStyle(el).fontSize)) >= 34, 'Hero typography should remain prominent');
-      const image = await hero.locator('.hero-stage img').boundingBox();
-      const stage = await hero.locator('.hero-stage').boundingBox();
-      const pixels = { left: image.x + body.left / source.info.width * image.width, right: image.x + body.right / source.info.width * image.width, top: image.y + body.top / source.info.height * image.height, bottom: image.y + body.bottom / source.info.height * image.height };
-      assert.ok(pixels.left >= stage.x - 2 && pixels.right <= stage.x + stage.width + 2 && pixels.top >= stage.y - 2 && pixels.bottom <= stage.y + stage.height + 2, 'People, including feet and heads, must fit in the composed stage: ' + width);
+      assert.ok(await hero.locator('.hero-film-poster').evaluate(el => el.complete && el.naturalWidth > 0), 'Poster loads: ' + width);
       assert.equal(await hero.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
       await hero.close();
     }
-    console.log('PASS: layered hero, prominent type, complete people and no overflow across four widths.');
+    console.log('PASS: film hero poster, prominent type and no overflow across four widths.');
     const touch = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     await touch.goto(base, { waitUntil: 'networkidle' });
     const touchCard = touch.locator('.solution-card').first();
@@ -145,7 +136,7 @@ const server = http.createServer((req, res) => {
     const staticPage = await browser.newPage({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
     await staticPage.goto(base, { waitUntil: 'networkidle' });
     assert.equal(await staticPage.locator('.particle-label').evaluate(el => getComputedStyle(el).opacity), '1');
-    assert.equal(await staticPage.locator('.hero-stage img').evaluate(el => el.complete && el.naturalWidth > 0), true);
+    assert.equal(await staticPage.locator('.hero-film-poster').evaluate(el => el.complete && el.naturalWidth > 0), true);
     await staticPage.close();
     console.log('PASS: touch stays static, keyboard menu/FAQ work, and hero/footer remain useful without JavaScript.');
   } finally {

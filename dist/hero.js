@@ -1,57 +1,31 @@
-/* Hero da identidade 2026-11: progresso de saída (--hp) e abertura do
-   cobalto (--hx). Só variáveis CSS lidas por transform/clip-path, um quadro
-   por requestAnimationFrame e nada roda com o hero fora da tela. Sem JS, ou
-   com movimento reduzido, o hero fica na composição estática completa. */
+/* Hero em filme: o motor scroll-craft (scrollcraft.js, sem alterações) faz o
+   vídeo andar com a rolagem. Aqui só decidimos quando montá-lo e trocamos as
+   cores do texto quando o azul toma o quadro. Sem JS, com movimento reduzido
+   ou com ?t=/?reduce=1, o hero fica no pôster estático, sem rolagem extra. */
 (() => {
   'use strict';
   const hero = document.querySelector('[data-hero]');
   if (!hero) return;
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const query = new URLSearchParams(location.search);
-  const still = () => reduced.matches || query.get('reduce') === '1' || query.has('t');
-  const clamp = v => Math.min(1, Math.max(0, v));
-  const smooth = t => t * t * (3 - 2 * t);
-  let visible = true;
-  let frame = 0;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const still = reduced.matches || query.get('reduce') === '1' || query.has('t');
+  if (still || !window.ScrollCraft) return;
 
-  function write() {
-    frame = 0;
-    if (still() || !visible) return;
-    const box = hero.getBoundingClientRect();
-    const hp = clamp(-box.top / Math.max(1, box.height));
-    hero.style.setProperty('--hp', hp.toFixed(4));
-    hero.style.setProperty('--hx', smooth(clamp((hp - .42) / .5)).toFixed(4));
+  // Telas em pé acima de 860px (tablet vertical) também recebem o filme
+  // vertical: o motor só troca de clipe por largura.
+  const video = hero.querySelector('video[data-sc-scrub]');
+  if (matchMedia('(min-width: 861px) and (max-aspect-ratio: 1/1)').matches) {
+    video.setAttribute('data-sc-src', video.getAttribute('data-sc-src-mobile'));
   }
-  const request = () => { if (!frame) frame = requestAnimationFrame(write); };
+  hero.classList.add('is-film');
+  window.ScrollCraft.mount(hero.parentElement);
 
-  function sync() {
-    if (still()) {
-      cancelAnimationFrame(frame); frame = 0;
-      hero.classList.remove('is-opening');
-      hero.style.removeProperty('--hp');
-      hero.style.removeProperty('--hx');
-      return;
-    }
-    request();
-  }
+  // O cobalto ocupa o quadro a partir de 4,4 s do filme (de 8 s). O motor
+  // posiciona o vídeo por seek; cada seek concluído atualiza as cores.
+  const flood = () => hero.classList.toggle('is-flooded', video.currentTime >= 4.6);
+  video.addEventListener('seeked', flood);
+  video.addEventListener('timeupdate', flood);
 
-  // Abertura uma vez, só quando o hero está na tela ao carregar.
-  if (!still() && hero.getBoundingClientRect().top < innerHeight) {
-    hero.classList.add('is-opening');
-    hero.addEventListener('animationend', event => {
-      if (event.target.closest('.hero-orbit-front')) hero.classList.remove('is-opening');
-    });
-  }
-
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(entries => {
-      visible = entries[0].isIntersecting;
-      if (visible) request();
-    }).observe(hero);
-  }
-  addEventListener('scroll', request, { passive: true });
-  addEventListener('resize', request);
-  reduced.addEventListener('change', sync);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; } });
-  sync();
+  // Mudar a preferência durante a visita: recarregar deixa o hero estático.
+  reduced.addEventListener('change', () => { if (reduced.matches) location.reload(); });
 })();

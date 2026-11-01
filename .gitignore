@@ -1,3 +1,7 @@
 
 # arquivos de trabalho da skill tasteskill (screenshots, report)
 .taste-skill/
+# fonte do filme do hero (HyperFrames): renders e artefatos ficam fora do git
+filme/*/renders/
+filme/*/.hyperframes/
+filme/*/node_modules/

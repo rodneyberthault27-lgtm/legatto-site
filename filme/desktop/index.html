@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      /* Legatto: a vida em órbita. Sem texto no quadro: título e CTA são HTML
+         no site. A metade esquerda fica livre (preto) até o azul tomar. */
+      :root {
+        --midnight: #080b12;
+        --cobalt: #2450ff;
+        --lime: #d6ff3f;
+        --branco: #f5f7fa;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--midnight); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--midnight); }
+      #plane {
+        position: absolute; inset: 0; background: var(--cobalt);
+        clip-path: polygon(58% 0%, 100% 0%, 100% 100%, 50% 100%);
+      }
+      #cam { position: absolute; inset: 0; transform-origin: 1440px 620px; }
+      .orbit { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+      .orbit path { fill: none; stroke: var(--lime); stroke-width: 7; stroke-linecap: round; }
+      #orbit-back { z-index: 1; }
+      #orbit-back path { opacity: 0.75; }
+      #family { position: absolute; left: 475px; top: 160px; width: 1344px; height: 896px; z-index: 3; }
+      #orbit-front { z-index: 5; }
+      #ring { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 6; }
+      #ring circle { fill: none; stroke: var(--lime); stroke-width: 7; stroke-linecap: round; }
+      .card {
+        position: absolute; left: 0; top: 0; width: 330px; height: 220px;
+        border: 3px solid var(--branco); border-radius: 4px; overflow: hidden;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+      }
+      .card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+      <div id="plane" class="clip" data-start="0" data-duration="8" data-track-index="0"></div>
+      <div id="cam" class="clip" data-start="0" data-duration="8" data-track-index="1">
+        <svg id="orbit-back" class="orbit" viewBox="0 0 1920 1080"><path id="orbit-back-path" d="M1030 640 A410 120 0 0 1 1850 640" pathLength="1" /></svg>
+        <div id="card-familia" class="card"><img src="assets/legatto-familia.webp" alt="" /></div>
+        <div id="card-saude" class="card"><img src="assets/legatto-saude.webp" alt="" /></div>
+        <div id="card-auto" class="card"><img src="assets/legatto-auto.webp" alt="" /></div>
+        <img id="family" src="assets/hero-familia-recorte.webp" alt="" />
+        <div id="card-patrimonio" class="card"><img src="assets/legatto-patrimonio.webp" alt="" /></div>
+        <div id="card-empresa" class="card"><img src="assets/legatto-empresa.webp" alt="" /></div>
+        <svg id="orbit-front" class="orbit" viewBox="0 0 1920 1080"><path id="orbit-front-path" d="M1850 640 A410 120 0 0 1 1030 640" pathLength="1" /></svg>
+        <svg id="ring" viewBox="0 0 1920 1080"><circle id="ring-circle" cx="1440" cy="600" r="430" pathLength="1" /></svg>
+      </div>
+    </div>
+    <script>
+      // Cartões viajam numa elipse em volta da família. Frente (sen > 0)
+      // fica maior e na frente das pessoas; trás, menor e atrás delas.
+      const C = { x: 1440, y: 560, rx: 330, ry: 300 };
+      const cards = [
+        { id: "card-familia", a: -2.55, born: 1.2 },
+        { id: "card-saude", a: -0.75, born: 1.5 },
+        { id: "card-auto", a: -1.65, born: 1.8 },
+        { id: "card-patrimonio", a: 0.55, born: 2.1 },
+        { id: "card-empresa", a: 2.45, born: 2.4 },
+      ];
+      function place(el, a, k, exit) {
+        const sin = Math.sin(a);
+        const depth = (sin + 1) / 2; // 0 trás, 1 frente
+        // Na saída as fotos se afastam do texto: para a direita, nunca sobre a coluna da esquerda.
+        const x = C.x + Math.cos(a) * C.rx * k + exit * (1500 + 400 * (1 + Math.cos(a)));
+        const y = C.y + sin * C.ry * k * (1 + exit * 1.5);
+        const s = (0.62 + depth * 0.55) * (0.35 + 0.65 * k);
+        el.style.transform = `translate(${x - 165}px, ${y - 110}px) scale(${s}) rotate(${Math.cos(a) * -6}deg)`;
+        el.style.zIndex = sin > 0.05 ? 4 : 2;
+      }
+
+      const tl = gsap.timeline({ paused: true });
+
+      // 0-2 s: aproximação. A câmera avança sobre a família, a órbita gira.
+      tl.fromTo("#cam", { scale: 1, y: 0 }, { scale: 1.1, y: -10, duration: 2.2, ease: "power2.inOut" }, 0);
+      tl.fromTo(["#orbit-back", "#orbit-front"], { rotation: -4, transformOrigin: "1440px 640px" }, { rotation: 5, duration: 4.4, ease: "none" }, 0);
+      tl.fromTo("#family", { y: 0 }, { y: -18, duration: 4.4, ease: "sine.inOut" }, 0);
+
+      // 1,2-4,4 s: a vida sai de trás da família e entra em órbita.
+      cards.forEach((c, i) => {
+        const el = document.getElementById(c.id);
+        const st = { a: c.a - 1.1, k: 0, exit: 0, o: 0 };
+        const draw = () => { place(el, st.a, st.k, st.exit); el.style.opacity = st.o; };
+        draw();
+        tl.fromTo(st, { a: c.a - 1.1, k: 0, o: 0 }, { a: c.a, k: 1, o: 1, duration: 1.6, ease: "power3.out", onUpdate: draw }, c.born);
+        tl.fromTo(st, { a: c.a }, { a: c.a + 0.42, duration: 4.4 - (c.born + 1.6), ease: "none", immediateRender: false, onUpdate: draw }, c.born + 1.6);
+        // 4,4-5,8 s: saem em velocidades diferentes enquanto o azul toma.
+        tl.fromTo(st, { exit: 0 }, { exit: 1, duration: 1.1 + i * 0.12, ease: "power2.in", immediateRender: false, onUpdate: draw }, 4.4);
+      });
+
+      // 4,4-5,8 s: o cobalto ocupa o quadro.
+      tl.fromTo("#plane", { clipPath: "polygon(58% 0%, 100% 0%, 100% 100%, 50% 100%)" }, { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1.4, ease: "power2.inOut" }, 4.4);
+      tl.fromTo("#cam", { scale: 1.1, y: -10 }, { scale: 0.92, y: 20, duration: 1.8, ease: "power2.inOut", immediateRender: false }, 4.4);
+      tl.fromTo(["#orbit-back path", "#orbit-front path"], { strokeDashoffset: 0, strokeDasharray: 1 }, { strokeDashoffset: 1, duration: 0.9, ease: "power2.in", immediateRender: false }, 4.7);
+
+      // 5,6-8,0 s: a órbita fecha num anel em volta da família.
+      tl.fromTo("#ring-circle", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.0, ease: "power3.out" }, 5.6);
+
+      // 6,2-8,0 s: a cena segue respirando até o fim, sem quadro morto.
+      tl.fromTo("#cam", { scale: 0.92 }, { scale: 0.97, duration: 1.8, ease: "sine.inOut", immediateRender: false }, 6.2);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
