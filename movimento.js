@@ -26,6 +26,7 @@
     ['.story-copy', 'deriva'],
     ['.specialist-photo', 'panorama'],
     ['.final-cta h2', 'crescer'],
+    ['.desafio-meter', 'medidor'],
   ];
   const items = [];
   devices.forEach(([selector, kind]) => {

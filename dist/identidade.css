@@ -302,3 +302,41 @@ footer a:hover{color:var(--lime)}
 .mv-rail:hover .mv-track{animation-play-state:paused}
 @keyframes mv-faixa{to{transform:translateX(calc(-50% - 5px))}}
 @media(prefers-reduced-motion:reduce){.mv-track{animation:none}}
+
+/* ==========================================================================
+   CABEÇALHO SÓLIDO
+   Translúcido, ele ficava esverdeado sobre o fecho lime enquanto o menu
+   (fundo sólido) aparecia como um retângulo preto. Sólido, os dois somem
+   num mesmo chão.
+   ========================================================================== */
+.site-header{background:var(--midnight);-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(min-width:961px){.main-nav{background:transparent}}
+
+/* ==========================================================================
+   DESAFIO: chamada para o Sobreviva ao Mês
+   ========================================================================== */
+.desafio{background:var(--midnight-2);overflow:clip}
+.desafio-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
+.desafio h2{font-size:clamp(38px,4.6vw,72px);line-height:.98;letter-spacing:-.04em;max-width:13ch;color:var(--branco)}
+.desafio h2 em{color:var(--lime)}
+.desafio-copy>p:not(.eyebrow):not(.desafio-note){margin:24px 0 32px;max-width:44ch;font-size:clamp(17px,1.3vw,20px);line-height:1.55;color:var(--tinta-suave)}
+.desafio .button{min-height:56px;padding:16px 28px;font-size:16px;gap:10px}
+.desafio-note{margin-top:16px;font-size:13px;color:var(--tinta-suave)}
+.desafio-card{
+  position:relative;display:flex;flex-direction:column;gap:18px;padding:clamp(28px,3vw,44px);
+  background:var(--cobalt);color:var(--branco);text-decoration:none;border-radius:2px;
+  rotate:-2deg;transition:rotate var(--dur-2) var(--ease-out),translate var(--dur-2) var(--ease-out);
+}
+.desafio-card:hover{rotate:0deg;translate:0 -4px}
+.desafio-day{font-family:var(--display);font-weight:650;font-size:clamp(56px,7vw,112px);line-height:.9;letter-spacing:-.04em;color:var(--lime)}
+.desafio-line{font-family:var(--display);font-weight:600;font-size:clamp(22px,2vw,30px);line-height:1.15}
+.desafio-meter{display:block;height:8px;background:rgba(245,247,250,.25)}
+.desafio-meter span{display:block;height:100%;width:62%;background:var(--lime);transform-origin:0 50%;transform:scaleX(var(--mv,1))}
+.desafio-steps{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:#EEF2FF}
+.desafio-steps span::before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;border-radius:50%;background:var(--lime);vertical-align:middle}
+@media(max-width:860px){
+  .desafio-grid{grid-template-columns:minmax(0,1fr)}
+  .desafio .button{width:100%}
+  .desafio-card{rotate:-1deg}
+}
+@media(prefers-reduced-motion:reduce){.desafio-card{rotate:0deg;transition:none}}
