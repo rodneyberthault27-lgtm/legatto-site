@@ -340,3 +340,4 @@ footer a:hover{color:var(--lime)}
   .desafio-card{rotate:-1deg}
 }
 @media(prefers-reduced-motion:reduce){.desafio-card{rotate:0deg;transition:none}}
+.desafio .eyebrow{text-transform:uppercase;font-size:12px}
