@@ -2,3 +2,85 @@
 
 /* foco por teclado no mesmo anel lime do site */
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* ==========================================================================
+   COMUNICAÇÃO DO SITE (Legatto, identidade 2026-11)
+   O jogo fala a mesma língua visual da home: cabeçalho com o logo, chão
+   preto liso, o cobalto como assinatura (o imprevisto e os destaques), o lime
+   só para a ação principal e o que está escolhido, cartões com superfície e
+   borda fina, tipografia maior.
+   ========================================================================== */
+:root{--superficie:#121827;--superficie-2:#1a2133;--linha:rgba(245,247,250,.09);--tinta-suave:#a9b1c2;--cobalt:#2450ff}
+.game-shell{background:var(--navy)}
+.game-shell::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--cobalt);
+  clip-path:polygon(88% 0,100% 0,100% 100%,84% 100%);
+}
+/* o plano só aparece onde não encosta no conteúdo (980px centralizado) */
+@media(max-width:1499px){.game-shell::before{display:none}}
+.screen{position:relative;z-index:1;padding-top:0}
+.topbar{
+  position:sticky;top:0;z-index:5;margin:0 calc(50% - 50vw) auto;padding:14px max(20px,calc(50vw - 490px));
+  background:var(--navy);border-bottom:1px solid var(--linha);
+}
+.brand::before{display:none}
+.brand img{display:block;width:170px;height:auto;filter:brightness(0) invert(1)}
+.progress{margin-left:auto;font:500 13px var(--sans);color:var(--tinta-suave)}
+.progress-track{height:4px;width:140px}
+.back{color:var(--white);font-size:14px;font-weight:500;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:5px}
+.back:hover{color:var(--gold)}
+.content{padding-block:48px}
+
+.eyebrow{font:600 12px var(--sans);letter-spacing:.14em}
+.title{font-weight:650}
+.lede{max-width:46ch;color:var(--tinta-suave);font-size:clamp(17px,1.3vw,20px);line-height:1.55}
+.caption,.notice,.mini{color:var(--tinta-suave);font-size:14px}
+.notice{font-size:13px}
+.disclaimer{color:var(--tinta-suave);font-size:12px}
+
+/* botões: o primário é o mesmo do site (lime, texto escuro); o secundário, contorno */
+.button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:16px 28px;border-radius:2px;font-size:16px;font-weight:600;letter-spacing:.01em;text-decoration:none}
+.button:hover{background:var(--white);border-color:var(--white)}
+.button.ghost{color:var(--gold);border-color:var(--gold)}
+.button.ghost:hover{color:var(--navy);background:var(--gold)}
+.share{font-size:14px;text-decoration:underline;text-underline-offset:5px}
+
+/* cartões e escolhas: superfície, borda fina, cobalto no hover, cobalto cheio quando escolhido */
+.choice,.expense,.decision,.compare-card,.meter,.impact div{background:var(--superficie);border:1px solid var(--linha);border-radius:2px}
+.choice:hover,.expense:hover,.decision:hover{border-color:rgba(36,80,255,.8);background:var(--superficie-2)}
+.choice.selected,.expense.active{background:var(--cobalt);border-color:var(--cobalt)}
+.expense.active span{color:var(--white)}
+.choice small,.decision small,.event p{color:var(--tinta-suave);font-size:14px}
+.choice strong,.decision strong,.compare-card strong,.impact strong,.money{font-weight:650}
+.expense b{font-size:18px}
+.expense span{font:500 14px var(--sans)}
+.meter{border-top:4px solid var(--cobalt)}
+.meter p,.impact p,.compare-card p{font-size:14px}
+.impact{background:transparent;gap:12px}
+.compare-card.highlight{background:var(--cobalt);border-color:var(--cobalt);color:var(--white)}
+.event time{font:600 13px var(--sans)}
+.event b{font-size:18px}
+.field{background:var(--superficie);border-color:var(--linha);border-radius:2px;font-size:16px}
+.form-grid span{font-size:14px;color:var(--tinta-suave)}
+
+/* o imprevisto é o momento cobalto, igual ao cartão da home */
+.interrupt{background:var(--cobalt);border:0;border-radius:2px;rotate:-1.5deg}
+.interrupt .day{color:var(--gold);font:650 clamp(48px,6vw,88px)/.9 var(--serif);letter-spacing:-.04em}
+.interrupt .lede{color:#eef2ff}
+
+/* índice: anel lime sobre o cobalto */
+.score-ring{background:var(--cobalt);border-color:var(--gold);box-shadow:none}
+.score-ring span{font:500 14px var(--sans);color:var(--white)}
+
+@media(max-width:700px){
+  .topbar{padding:12px 16px;gap:12px}
+  .brand img{width:120px}
+  .progress span:first-child{display:none}
+  .progress-track{width:64px}
+  .back{font-size:13px}
+  .content{padding-block:32px}
+  .title{font-size:clamp(40px,11vw,52px)}
+  .lede{font-size:16px}
+  .interrupt{rotate:0deg;padding:28px}
+}
+@media(prefers-reduced-motion:reduce){.interrupt{rotate:0deg}}
