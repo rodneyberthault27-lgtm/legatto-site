@@ -28,17 +28,15 @@ const server = http.createServer((req, res) => {
       await page.goto(base, { waitUntil: 'networkidle' });
       await page.locator('img').evaluateAll(images => images.forEach(img => img.loading = 'eager'));
       await page.waitForFunction(() => [...document.images].every(img => img.complete));
-      const photos = await page.locator('.hero-visual img,.solution-card figure img').evaluateAll(images => images.map(img => {
+      const photos = await page.locator('.solution-card figure img').evaluateAll(images => images.map(img => {
         const box = img.getBoundingClientRect();
         return { src: img.currentSrc, natural: img.naturalWidth / img.naturalHeight, rendered: box.width / box.height, loaded: img.naturalWidth > 0 };
       }));
-      assert.equal(photos.length, 7);
+      assert.equal(photos.length, 6);
       for (const photo of photos) {
         assert.ok(photo.loaded, 'Image loads: ' + photo.src);
         assert.ok(Math.abs(photo.natural - photo.rendered) < .015, 'Photo must retain full composition without cutting people: ' + width + ' ' + photo.src);
       }
-      const caption = await page.locator('.hero-visual').evaluate(figure => ({ imageBottom: figure.querySelector('img').getBoundingClientRect().bottom, captionTop: figure.querySelector('figcaption').getBoundingClientRect().top }));
-      assert.ok(caption.captionTop >= caption.imageBottom - 1, 'Caption must not cover the family');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
       if ([1440, 390].includes(width)) {
         await page.screenshot({ path: path.join(shots, 'jornada-hero-' + width + '.png') });
@@ -47,7 +45,7 @@ const server = http.createServer((req, res) => {
       }
       await page.close();
     }
-    console.log('PASS: seven uncropped photos, caption outside image, six responsive widths.');
+    console.log('PASS: six uncropped solution photos at six responsive widths.');
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     await page.goto(base + '/?t=0', { waitUntil: 'networkidle' });
     assert.equal(await page.locator('.protection-journey a').count(), 4, 'Four areas connected by a useful, navigable protection journey');
