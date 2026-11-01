@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0B0B0D">
+  <meta name="theme-color" content="#080B12">
   <meta name="description" content="Seguro Auto, Vida, Saúde e proteção empresarial com orientação próxima. A Legatto ajuda a entender alternativas, coberturas e condições para proteger o que importa.">
   <title>Legatto | Seguros, Saúde e Proteção Financeira</title>
   <link rel="canonical" href="https://legatto-consultoria.rodead.chatgpt.site/">
@@ -17,16 +17,18 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=20261019-jornada">
   <link rel="stylesheet" href="instrumento.css?v=20261019-jornada">
   <link rel="stylesheet" href="jornada.css?v=20261019-motion">
   <link rel="stylesheet" href="acabamento.css?v=20261020-type">
+  <link rel="stylesheet" href="identidade.css?v=20261101-identidade">
   <script src="script.js?v=20261019-jornada" defer></script>
   <script src="assets/vendor/gsap-3.15.0.min.js" defer></script>
   <script src="jornada.js?v=20261020-family" defer></script>
   <script src="acabamento.js?v=20261020-family" defer></script>
+  <script src="hero.js?v=20261101-identidade" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -201,20 +203,24 @@
     </div>
   </header>
   <main id="conteudo">
-    <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <section class="hero" id="inicio" aria-labelledby="hero-title" data-hero>
+      <div class="hero-plane" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-copy">
-          <h1 id="hero-title" class="hero-entrance">Você constrói uma história.<br>Nós ajudamos a <span class="keep-together">protegê-la.</span></h1>
-          <p class="hero-description hero-entrance">Seguro de vida, saúde, automóvel e proteção empresarial com orientação personalizada para cada momento da sua vida.</p>
+
+          <h1 id="hero-title" class="hero-entrance"><span class="hero-line">Você constrói uma história.</span> <span class="hero-line">Nós ajudamos a <span class="keep-together hero-mark">protegê-la.</span></span></h1>
+          <p class="hero-description hero-entrance">Vida, saúde, auto e empresa com um consultor que explica cada escolha antes de você decidir.</p>
           <div class="hero-actions hero-entrance">
-            <a class="button button-gold" data-cta="hero-primario" data-whatsapp="Olá, gostaria de solicitar orientação sobre proteção para mim, minha família ou minha empresa." href="https://wa.me/5511971371823" target="_blank" rel="noopener">Solicitar orientação</a>
+            <a class="button button-gold" data-cta="hero-primario" data-whatsapp="Olá, gostaria de solicitar orientação sobre proteção para mim, minha família ou minha empresa." href="https://wa.me/5511971371823" target="_blank" rel="noopener">Falar com um consultor</a>
             <a class="hero-secondary" data-cta="hero-secundario" href="#solucoes">Conhecer soluções</a>
           </div>
           <p class="hero-note">O botão abre o WhatsApp. Você conta sua necessidade e o consultor explica as informações e os próximos passos.</p>
         </div>
         <figure class="hero-visual hero-entrance">
           <div class="hero-stage">
+            <svg class="hero-orbit hero-orbit-back" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M5 60 A46 14 0 0 1 97 60" pathLength="1"/></svg>
             <div class="hero-family"><img src="assets/hero-familia-recorte.webp" width="1200" height="800" alt="Pai, filha e mãe caminhando de mãos dadas" fetchpriority="high"></div>
+            <svg class="hero-orbit hero-orbit-front" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M97 60 A46 14 0 0 1 5 60" pathLength="1"/></svg>
           </div>
           <figcaption><p>Os planos continuam. As histórias também.</p></figcaption>
         </figure>
