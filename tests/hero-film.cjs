@@ -36,7 +36,7 @@ const ctaVisible = page => page.locator('.hero-actions .button').evaluate(el => 
     for (const [width, height, mobile] of [[1440, 900, false], [390, 844, true]]) {
       const page = await browser.newPage({ viewport: { width, height }, reducedMotion: 'no-preference', isMobile: mobile, hasTouch: mobile });
       const clips = [];
-      page.on('request', request => { if (request.url().endsWith('.mp4')) clips.push(path.basename(new URL(request.url()).pathname)); });
+      page.on('request', request => { if (new URL(request.url()).pathname.endsWith('.mp4')) clips.push(path.basename(new URL(request.url()).pathname)); });
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
       await page.goto(base, { waitUntil: 'networkidle' });
@@ -64,7 +64,7 @@ const ctaVisible = page => page.locator('.hero-actions .button').evaluate(el => 
     for (const width of [1440, 390]) {
       const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
       const clips = [];
-      page.on('request', request => { if (request.url().endsWith('.mp4')) clips.push(request.url()); });
+      page.on('request', request => { if (new URL(request.url()).pathname.endsWith('.mp4')) clips.push(request.url()); });
       await page.goto(base, { waitUntil: 'networkidle' });
       assert.deepEqual(clips, [], 'Reduced motion never fetches the film');
       const state = await page.evaluate(() => {
