@@ -143,15 +143,23 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 /* Celular e telas em pé (tablet vertical) usam o filme vertical. */
 @media(max-width:860px),(max-aspect-ratio:1/1){
   .hero-film-poster,.hero-film-video{object-position:50% 100%}
-  .hero-grid{grid-template-columns:minmax(0,1fr);align-items:start;padding-top:28px}
-  #hero-title{font-size:clamp(38px,10.4vw,60px);max-width:12ch}
-  .hero-description{margin:16px 0 20px;font-size:16px;max-width:34ch}
+  /* O filme vertical guarda os 36% de baixo para a família; o texto precisa
+     caber acima disso mesmo com as barras do Safari abertas. */
+  .hero-grid{grid-template-columns:minmax(0,1fr);align-items:start;padding-top:clamp(16px,3vh,28px)}
+  #hero-title{font-size:clamp(34px,9vw,56px);max-width:12ch}
+  .hero-description{margin:14px 0 20px;font-size:15px;line-height:1.5;max-width:44ch}
   .hero-note,.hero-trust,.hero-secondary{display:none}
   .hero-film-stage{min-height:calc(100svh - var(--header-h))}
   /* Sem o motor, o pôster precisa de altura para mostrar a família. */
   .hero:not(.is-film) .hero-film-stage{min-height:max(calc(100svh - var(--header-h)),720px)}
 }
-@media(max-width:700px){.hero-actions .button{width:100%}}
+@media(max-width:700px){.hero-actions .button{width:100%;min-height:52px;padding:14px 24px}}
+/* Telas bem baixas (iPhone SE com barras): título e botão; a descrição fica para depois. */
+@media (max-width:860px) and (max-height:620px),(max-aspect-ratio:1/1) and (max-height:620px){
+  #hero-title{font-size:31px}
+  .hero-description{display:none}
+  .hero-actions{margin-top:18px}
+}
 
 /* ==========================================================================
    SAÍDA DO HERO: a jornada começa em cobalto, emendando com o fim do filme.
@@ -346,3 +354,9 @@ footer a:hover{color:var(--lime)}
 }
 @media(prefers-reduced-motion:reduce){.desafio-card{rotate:0deg;transition:none}}
 .desafio .eyebrow{text-transform:uppercase;font-size:12px}
+
+/* Celular: o WhatsApp flutuante espera o botão do hero sair da tela. */
+@media(max-width:860px),(max-aspect-ratio:1/1){
+  .whatsapp-float{transition:opacity .25s ease,transform .25s ease,visibility 0s linear 0s}
+  .hero-cta-visivel .whatsapp-float{opacity:0;transform:translateY(16px);visibility:hidden;pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s}
+}
