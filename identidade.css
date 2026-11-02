@@ -199,6 +199,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 /* marcas: cartões claros, para os logos oficiais lerem nas cores reais */
 .brand-card{background:var(--branco);border:0;color:var(--midnight)}
 .brand-card span{color:var(--midnight)}
+/* cartão branco dispensa o multiply; no Safari ele fantasma os logos dentro da faixa animada */
+.brand-card img{mix-blend-mode:normal}
+/* marca sem logo oficial vira assinatura tipográfica, não cartão vazio */
+.brand-card:not(:has(img)) span{font-family:var(--display);font-size:19px;font-weight:700;line-height:1.15;letter-spacing:-.01em}
 .brand-groups h3{color:var(--tinta-suave)}
 
 /* prioridades */
@@ -294,13 +298,14 @@ footer a:hover{color:var(--lime)}
 .mv-quote.is-in .mv-word{opacity:1;translate:0 0}
 
 /* faixa de marcas em movimento contínuo e lento */
-.mv-track{display:flex;width:max-content;gap:10px;animation:mv-faixa 38s linear infinite;animation-direction:var(--dir,normal)}
+.mv-track{display:flex;width:max-content;gap:10px;animation:mv-faixa 38s linear infinite;animation-direction:var(--dir,normal);will-change:transform;backface-visibility:hidden}
 .mv-track>.brand-grid{flex-wrap:nowrap;flex:none}
-.mv-track .brand-card{flex:0 0 190px}
+.mv-track .brand-card{flex:0 0 190px;min-height:112px;transform:none;animation:none}
 .brand-groups>div{min-width:0}
-.mv-rail{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+/* corte seco na borda: degradê sobre cartão branco virava mancha escura */
+.mv-rail{overflow:hidden;contain:paint}
 .mv-rail:hover .mv-track{animation-play-state:paused}
-@keyframes mv-faixa{to{transform:translateX(calc(-50% - 5px))}}
+@keyframes mv-faixa{from{transform:translate3d(0,0,0)}to{transform:translate3d(calc(-50% - 5px),0,0)}}
 @media(prefers-reduced-motion:reduce){.mv-track{animation:none}}
 
 /* ==========================================================================
