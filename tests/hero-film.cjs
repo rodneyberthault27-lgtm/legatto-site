@@ -60,6 +60,22 @@ const ctaVisible = page => page.locator('.hero-actions .button').evaluate(el => 
     }
     console.log('PASS: film scrubs forward and back on desktop and phone, own clip per device, CTA always visible.');
 
+    // Phones with Safari's bars open: the copy and CTA end above the family.
+    // The vertical film keeps its people, cards and ring in the bottom 36% of the frame.
+    for (const [width, height] of [[375, 548], [360, 640], [390, 664], [393, 659], [430, 740]]) {
+      const page = await browser.newPage({ viewport: { width, height }, isMobile: true, hasTouch: true });
+      await page.goto(base, { waitUntil: 'networkidle' });
+      const gap = await page.evaluate(() => {
+        const stage = document.querySelector('.hero-film-stage').getBoundingClientRect();
+        const scene = stage.bottom - Math.max(stage.height, stage.width * 1920 / 1080) * .36;
+        const copy = [...document.querySelectorAll('.hero-copy > *')].filter(el => getComputedStyle(el).display !== 'none');
+        return scene - Math.max(...copy.map(el => el.getBoundingClientRect().bottom));
+      });
+      assert.ok(gap >= 16, `CTA clears the family at ${width}x${height}: ${Math.round(gap)}px`);
+      await page.close();
+    }
+    console.log('PASS: on short phones the headline and CTA end above the family.');
+
     // Reduced motion: static poster, no clip download, no extra scroll.
     for (const width of [1440, 390]) {
       const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });

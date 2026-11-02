@@ -6,6 +6,15 @@
   'use strict';
   const hero = document.querySelector('[data-hero]');
   if (!hero) return;
+  // Enquanto o botão de WhatsApp do hero está na tela, o flutuante sai de
+  // cena no celular: dois botões iguais disputando o mesmo quadro sobrava.
+  const cta = hero.querySelector('.hero-actions .button');
+  if (cta && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      document.body.classList.toggle('hero-cta-visivel', entry.isIntersecting);
+    }).observe(cta);
+  }
+
   const query = new URLSearchParams(location.search);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const still = reduced.matches || query.get('reduce') === '1' || query.has('t');
